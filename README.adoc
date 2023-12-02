@@ -1,1 +1,14 @@
 = bloodborne-build-simulator
+:toc: left
+:sectnums:
+
+== 開発者用
+
+=== ローカル環境で起動する
+
+以下のコマンドを実行すると、 http://localhost:1323 でアクセスできるようになる。
+
+[source,bash]
+----
+npm run dev
+----
