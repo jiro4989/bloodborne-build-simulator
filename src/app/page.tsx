@@ -3,6 +3,76 @@ import Image from 'next/image'
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <header>
+        <h1>Bloodborne ビルドシミュレータ</h1>
+      </header>
+
+      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+        <section>
+          <h2>入力</h2>
+          <table>
+            <tbody>
+              <tr>
+                <th>過去</th>
+                <td>Select box</td>
+              </tr>
+
+              <tr>
+                <th>体力</th>
+                <td></td>
+              </tr>
+
+              <tr>
+                <th>持久力</th>
+                <td></td>
+              </tr>
+
+              <tr>
+                <th>筋力</th>
+                <td></td>
+              </tr>
+
+              <tr>
+                <th>技術</th>
+                <td></td>
+              </tr>
+
+              <tr>
+                <th>血質</th>
+                <td></td>
+              </tr>
+
+              <tr>
+                <th>神秘</th>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>計算結果</h2>
+          <table>
+            <tbody>
+              <tr>
+                <th>レベル</th>
+                <td>TODO</td>
+              </tr>
+
+              <tr>
+                <th>HP</th>
+                <td>TODO</td>
+              </tr>
+
+              <tr>
+                <th>スタミナ</th>
+                <td>TODO</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
         <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
           Get started by editing&nbsp;
