@@ -266,7 +266,8 @@ export default function Home() {
   }
 
   function generateURL(build: string, origin: number, vitality: number, endurance: number, strength: number, skill: number, bloodtinge: number, arcane: number): string {
-    const url = `http://localhost:1323?bld=${build}&org=${origin}&vit=${vitality}&end=${endurance}&str=${strength}&skl=${skill}&blt=${bloodtinge}&arc=${arcane}`
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL
+    const url = `${baseURL}?bld=${build}&org=${origin}&vit=${vitality}&end=${endurance}&str=${strength}&skl=${skill}&blt=${bloodtinge}&arc=${arcane}`
     return encodeURI(url)
   }
 
