@@ -199,49 +199,51 @@ export default function Home() {
     setValue(value)
   }
 
+  const buttonClass = "bg-white text-black p-1 rounded"
+
   const VitalityButton = ({value, text}: {value: number, text: string}) => {
     return (
-      <button type="button" onClick={e => setValueWithValidation(vitality + value, setVitality, 0, maxVitality)}>{text}</button>
+      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(vitality + value, setVitality, 0, maxVitality)}>{text}</button>
     )
   }
 
   const EnduranceButton = ({value, text}: {value: number, text: string}) => {
     return (
-      <button type="button" onClick={e => setValueWithValidation(endurance + value, setEndurance, 0, maxEndurance)}>{text}</button>
+      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(endurance + value, setEndurance, 0, maxEndurance)}>{text}</button>
     )
   }
 
   const StrengthButton = ({value, text}: {value: number, text: string}) => {
     return (
-      <button type="button" onClick={e => setValueWithValidation(strength + value, setStrength, 0, maxStrength)}>{text}</button>
+      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(strength + value, setStrength, 0, maxStrength)}>{text}</button>
     )
   }
 
   const SkillButton = ({value, text}: {value: number, text: string}) => {
     return (
-      <button type="button" onClick={e => setValueWithValidation(skill + value, setSkill, 0, maxSkill)}>{text}</button>
+      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(skill + value, setSkill, 0, maxSkill)}>{text}</button>
     )
   }
 
   const BloodtingeButton = ({value, text}: {value: number, text: string}) => {
     return (
-      <button type="button" onClick={e => setValueWithValidation(bloodtinge + value, setBloodtinge, 0, maxBloodtinge)}>{text}</button>
+      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(bloodtinge + value, setBloodtinge, 0, maxBloodtinge)}>{text}</button>
     )
   }
 
   const ArcaneButton = ({value, text}: {value: number, text: string}) => {
     return (
-      <button type="button" onClick={e => setValueWithValidation(arcane + value, setArcane, 0, maxArcane)}>{text}</button>
+      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(arcane + value, setArcane, 0, maxArcane)}>{text}</button>
     )
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between p-24">
       <header>
         <h1>Bloodborne ビルドシミュレータ</h1>
       </header>
 
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+      <div className="">
         <section>
           <h2>入力</h2>
           <table>
