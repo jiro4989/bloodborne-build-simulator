@@ -173,6 +173,16 @@ export default function Home() {
   const maxBloodtinge = 99 - origins.get(selected)!.bloodtinge
   const maxArcane = 99 - origins.get(selected)!.arcane
 
+  function resetStatus(value: string) {
+    setSelected(value)
+    setVitality(0)
+    setEndurance(0)
+    setStrength(0)
+    setSkill(0)
+    setBloodtinge(0)
+    setArcane(0)
+  }
+
   function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
     if (value < min) {
       setValue(min)
@@ -237,7 +247,7 @@ export default function Home() {
               <tr>
                 <th>過去</th>
                 <td>
-                  <select value={selected} onChange={e => setSelected(e.target.value)}>
+                  <select value={selected} onChange={e => resetStatus(e.target.value)}>
                     {
                       numberToOrigin.map((v,i) => <option key={v.key} value={v.key}>{v.name}</option>)
                     }
