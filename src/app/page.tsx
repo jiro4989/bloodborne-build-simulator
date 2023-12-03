@@ -238,15 +238,15 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-between p-20">
-      <header>
+    <main className="flex flex-col items-center justify-between">
+      <header className="p-8 text-2xl">
         <h1>Bloodborne ビルドシミュレータ</h1>
       </header>
 
-      <div className="">
-        <section>
-          <h2>入力</h2>
-          <table>
+      <div className="border rounded p-2">
+        <section className="m-2 border-b-2 border-dotted">
+          <h2 className="text-xl">入力</h2>
+          <table className="m-4">
             <tbody>
               <tr>
                 <th>過去</th>
@@ -389,9 +389,9 @@ export default function Home() {
           </table>
         </section>
 
-        <section>
-          <h2>計算結果</h2>
-          <table>
+        <section className="m-2">
+          <h2 className="text-xl">計算結果</h2>
+          <table className="m-4">
             <tbody>
               <tr>
                 <th>レベル</th>
