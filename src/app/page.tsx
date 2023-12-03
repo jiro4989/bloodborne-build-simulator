@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react'
 import { HPs, Staminas } from './data'
+import { useSearchParams  } from "next/navigation";
 
 type OriginKey = "milquetoast" | "loneSurvivor" | "troubledChildhood" | "violentPast" | "professional" | "militaryVeteran" | "nobleScion" | "cruelFate" | "wasteOfSkin"
 
@@ -157,14 +158,29 @@ const numberToOrigin: Origin[] = [
   originWasteOfSkin,
 ]
 
+function fixQueryParam(value: string | null): number {
+  if (value == null) {
+    return 0
+  }
+  return parseInt(value)
+}
+
 export default function Home() {
+  const searchParams = useSearchParams()
+  const defaultVitality = fixQueryParam(searchParams.get("vit"))
+  const defaultEndurance = fixQueryParam(searchParams.get("end"))
+  const defaultStrength = fixQueryParam(searchParams.get("str"))
+  const defaultSkill = fixQueryParam(searchParams.get("skl"))
+  const defaultBloodtinge = fixQueryParam(searchParams.get("bld"))
+  const defaultArcane = fixQueryParam(searchParams.get("arc"))
+
   const [selected, setSelected] = useState<string>("milquetoast")
-  const [vitality, setVitality] = useState<number>(0)
-  const [endurance, setEndurance] = useState<number>(0)
-  const [strength, setStrength] = useState<number>(0)
-  const [skill, setSkill] = useState<number>(0)
-  const [bloodtinge, setBloodtinge] = useState<number>(0)
-  const [arcane, setArcane] = useState<number>(0)
+  const [vitality, setVitality] = useState<number>(defaultVitality)
+  const [endurance, setEndurance] = useState<number>(defaultEndurance)
+  const [strength, setStrength] = useState<number>(defaultStrength)
+  const [skill, setSkill] = useState<number>(defaultSkill)
+  const [bloodtinge, setBloodtinge] = useState<number>(defaultBloodtinge)
+  const [arcane, setArcane] = useState<number>(defaultArcane)
 
   const selectedOrigin: Origin = origins.get(selected)!
   const maxVitality = 99 - selectedOrigin.vitality
@@ -276,7 +292,7 @@ export default function Home() {
                     max={maxVitality}
                     step="1"
                     value={vitality}
-                    onChange={e => setVitality(Number(e.target.value))}
+                    onChange={e => setVitality(parseInt(e.target.value))}
                     />
                   <VitalityButton value={+1} text="+1"/>
                   <VitalityButton value={+10} text="+10"/>
@@ -298,7 +314,7 @@ export default function Home() {
                     max={maxEndurance}
                     step="1"
                     value={endurance}
-                    onChange={e => setEndurance(Number(e.target.value))}
+                    onChange={e => setEndurance(parseInt(e.target.value))}
                     />
                   <EnduranceButton value={+1} text="+1"/>
                   <EnduranceButton value={+10} text="+10"/>
@@ -320,7 +336,7 @@ export default function Home() {
                     max={maxStrength}
                     step="1"
                     value={strength}
-                    onChange={e => setStrength(Number(e.target.value))}
+                    onChange={e => setStrength(parseInt(e.target.value))}
                     />
                   <StrengthButton value={+1} text="+1"/>
                   <StrengthButton value={+10} text="+10"/>
@@ -342,7 +358,7 @@ export default function Home() {
                     max={maxSkill}
                     step="1"
                     value={skill}
-                    onChange={e => setSkill(Number(e.target.value))}
+                    onChange={e => setSkill(parseInt(e.target.value))}
                     />
                   <SkillButton value={+1} text="+1"/>
                   <SkillButton value={+10} text="+10"/>
@@ -364,7 +380,7 @@ export default function Home() {
                     max={maxBloodtinge}
                     step="1"
                     value={bloodtinge}
-                    onChange={e => setBloodtinge(Number(e.target.value))}
+                    onChange={e => setBloodtinge(parseInt(e.target.value))}
                     />
                   <BloodtingeButton value={+1} text="+1"/>
                   <BloodtingeButton value={+10} text="+10"/>
@@ -386,7 +402,7 @@ export default function Home() {
                     max={maxArcane}
                     step="1"
                     value={arcane}
-                    onChange={e => setArcane(Number(e.target.value))}
+                    onChange={e => setArcane(parseInt(e.target.value))}
                     />
                   <ArcaneButton value={+1} text="+1"/>
                   <ArcaneButton value={+10} text="+10"/>
