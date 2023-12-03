@@ -158,6 +158,16 @@ const numberToOrigin: Origin[] = [
   originWasteOfSkin,
 ]
 
+function searchOriginIndex(key: string): number {
+  for (let i=0; i<numberToOrigin.length; i++) {
+    const org = numberToOrigin[i]
+    if (org.key === key) {
+      return i
+    }
+  }
+  return 0
+}
+
 function fixQueryParam(value: string | null): number {
   if (value == null) {
     return 0
@@ -176,6 +186,7 @@ export default function Home() {
   const defaultArcane = fixQueryParam(searchParams.get("arc"))
 
   const [selected, setSelected] = useState<string>(numberToOrigin[defaultOrigin].key)
+  const [buildName, setBuildName] = useState<string>("")
   const [vitality, setVitality] = useState<number>(defaultVitality)
   const [endurance, setEndurance] = useState<number>(defaultEndurance)
   const [strength, setStrength] = useState<number>(defaultStrength)
@@ -253,7 +264,13 @@ export default function Home() {
     )
   }
 
+  function generateURL(build: string, origin: number, vitality: number, endurance: number, strength: number, skill: number, bloodtinge: number, arcane: number): string {
+    const url = `http://localhost:1323?bld=${build}&org=${origin}&vit=${vitality}&end=${endurance}&str=${strength}&skl=${skill}&bld=${bloodtinge}&arc=${arcane}`
+    return encodeURI(url)
+  }
+
   const sliderClass = "w-60 m-2"
+  const shareURL = generateURL(buildName, searchOriginIndex(selected), vitality, endurance, strength, skill, bloodtinge, arcane)
 
   return (
     <main className="flex flex-col items-center justify-between">
@@ -267,8 +284,16 @@ export default function Home() {
           <table className="m-4">
             <tbody>
               <tr>
-                <th className="w-20">過去</th>
+                <th className="w-20">ビルド名</th>
                 <td className="w-8"></td>
+                <td>
+                  <input className="w-80 text-black" type="text" value={buildName} onChange={e => setBuildName(e.target.value)} />
+                </td>
+              </tr>
+
+              <tr>
+                <th>過去</th>
+                <td></td>
                 <td>
                   <select className="text-black" value={selected} onChange={e => resetStatus(e.target.value)}>
                     {
@@ -433,6 +458,20 @@ export default function Home() {
               </tr>
             </tbody>
           </table>
+        </section>
+
+        <section className="m-2">
+          <h2 className="text-xl">共有</h2>
+          <p className="m-4">
+            以下のURLをブックマークすることで、今のビルドを保存できます。<br/>
+            URLをコピーして共有すれば、他の人にビルドを紹介できます。
+          </p>
+          <details>
+            <summary>折りたたみを展開する</summary>
+            <p className="m-4 w-80 break-words">
+              <a className="text-cyan-300" href={shareURL}>{shareURL}</a>
+            </p>
+          </details>
         </section>
       </div>
     </main>
