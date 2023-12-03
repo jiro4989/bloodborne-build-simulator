@@ -159,6 +159,7 @@ const numberToOrigin: Origin[] = [
 
 export default function Home() {
   const [selected, setSelected] = useState<string>("milquetoast")
+  const [vitality, setVitality] = useState<number>(0)
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -184,7 +185,20 @@ export default function Home() {
 
               <tr>
                 <th>体力</th>
-                <td></td>
+                <td>
+                  <input type="number" value={origins.get(selected)!.vitality + vitality} />
+                </td>
+                <td>
+                  <input
+                    type="range"
+                    name="additionalVitality"
+                    min="0"
+                    max={99 - origins.get(selected)!.vitality}
+                    step="1"
+                    value={vitality}
+                    onChange={e => setVitality(Number(e.target.value))}
+                    />
+                </td>
               </tr>
 
               <tr>
