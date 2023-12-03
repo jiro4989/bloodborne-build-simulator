@@ -160,8 +160,10 @@ const numberToOrigin: Origin[] = [
 export default function Home() {
   const [selected, setSelected] = useState<string>("milquetoast")
   const [vitality, setVitality] = useState<number>(0)
+  const [endurance, setEndurance] = useState<number>(0)
 
   const maxVitality = 99 - origins.get(selected)!.vitality
+  const maxEndurance = 99 - origins.get(selected)!.endurance
 
   function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
     if (value < min) {
@@ -180,6 +182,12 @@ export default function Home() {
   const VitalityButton = ({value, text}: {value: number, text: string}) => {
     return (
       <button type="button" onClick={e => setValueWithValidation(vitality + value, setVitality, 0, maxVitality)}>{text}</button>
+    )
+  }
+
+  const EnduranceButton = ({value, text}: {value: number, text: string}) => {
+    return (
+      <button type="button" onClick={e => setValueWithValidation(endurance + value, setEndurance, 0, maxEndurance)}>{text}</button>
     )
   }
 
@@ -208,14 +216,13 @@ export default function Home() {
               <tr>
                 <th>体力</th>
                 <td>
-                  <input type="number" value={origins.get(selected)!.vitality + vitality} />
+                  {origins.get(selected)!.vitality + vitality}
                 </td>
                 <td>
                   <VitalityButton value={-10} text="-10"/>
                   <VitalityButton value={-1} text="-1"/>
                   <input
                     type="range"
-                    name="additionalVitality"
                     min="0"
                     max={maxVitality}
                     step="1"
@@ -229,7 +236,23 @@ export default function Home() {
 
               <tr>
                 <th>持久力</th>
-                <td></td>
+                <td>
+                  {origins.get(selected)!.endurance + endurance}
+                </td>
+                <td>
+                  <EnduranceButton value={-10} text="-10"/>
+                  <EnduranceButton value={-1} text="-1"/>
+                  <input
+                    type="range"
+                    min="0"
+                    max={maxEndurance}
+                    step="1"
+                    value={endurance}
+                    onChange={e => setEndurance(Number(e.target.value))}
+                    />
+                  <EnduranceButton value={+1} text="+1"/>
+                  <EnduranceButton value={+10} text="+10"/>
+                </td>
               </tr>
 
               <tr>
