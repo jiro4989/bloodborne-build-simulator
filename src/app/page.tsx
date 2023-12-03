@@ -476,6 +476,13 @@ export default function Home() {
           </details>
         </section>
       </div>
+
+      <footer className="m-4">
+        Copyright (C) 2023 <a className="text-cyan-300" href="https://github.com/jiro4989">jiro4989</a> |{' '}
+        <a className="text-cyan-300" href="https://github.com/jiro4989/bloodborne-build-simulator">
+          Repository
+        </a>
+      </footer>
     </main>
   )
 }
