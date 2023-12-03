@@ -199,7 +199,7 @@ export default function Home() {
     setValue(value)
   }
 
-  const buttonClass = "bg-white text-black p-1 rounded"
+  const buttonClass = "bg-white text-black p-1 m-1 rounded w-12"
 
   const VitalityButton = ({value, text}: {value: number, text: string}) => {
     return (
@@ -238,7 +238,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between p-20">
       <header>
         <h1>Bloodborne ビルドシミュレータ</h1>
       </header>
@@ -250,6 +250,7 @@ export default function Home() {
             <tbody>
               <tr>
                 <th>過去</th>
+                <td className="w-8"></td>
                 <td>
                   <select value={selected} onChange={e => resetStatus(e.target.value)}>
                     {
