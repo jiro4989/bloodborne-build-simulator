@@ -166,12 +166,13 @@ export default function Home() {
   const [bloodtinge, setBloodtinge] = useState<number>(0)
   const [arcane, setArcane] = useState<number>(0)
 
-  const maxVitality = 99 - origins.get(selected)!.vitality
-  const maxEndurance = 99 - origins.get(selected)!.endurance
-  const maxStrength = 99 - origins.get(selected)!.strength
-  const maxSkill = 99 - origins.get(selected)!.skill
-  const maxBloodtinge = 99 - origins.get(selected)!.bloodtinge
-  const maxArcane = 99 - origins.get(selected)!.arcane
+  const selectedOrigin: Origin = origins.get(selected)!
+  const maxVitality = 99 - selectedOrigin.vitality
+  const maxEndurance = 99 - selectedOrigin.endurance
+  const maxStrength = 99 - selectedOrigin.strength
+  const maxSkill = 99 - selectedOrigin.skill
+  const maxBloodtinge = 99 - selectedOrigin.bloodtinge
+  const maxArcane = 99 - selectedOrigin.arcane
 
   function resetStatus(value: string) {
     setSelected(value)
@@ -258,7 +259,7 @@ export default function Home() {
               <tr>
                 <th>体力</th>
                 <td>
-                  {origins.get(selected)!.vitality + vitality}
+                  {selectedOrigin.vitality + vitality}
                 </td>
                 <td>
                   <VitalityButton value={-10} text="-10"/>
@@ -279,7 +280,7 @@ export default function Home() {
               <tr>
                 <th>持久力</th>
                 <td>
-                  {origins.get(selected)!.endurance + endurance}
+                  {selectedOrigin.endurance + endurance}
                 </td>
                 <td>
                   <EnduranceButton value={-10} text="-10"/>
@@ -300,7 +301,7 @@ export default function Home() {
               <tr>
                 <th>筋力</th>
                 <td>
-                  {origins.get(selected)!.strength + strength}
+                  {selectedOrigin.strength + strength}
                 </td>
                 <td>
                   <StrengthButton value={-10} text="-10"/>
@@ -321,7 +322,7 @@ export default function Home() {
               <tr>
                 <th>技術</th>
                 <td>
-                  {origins.get(selected)!.skill + skill}
+                  {selectedOrigin.skill + skill}
                 </td>
                 <td>
                   <SkillButton value={-10} text="-10"/>
@@ -342,7 +343,7 @@ export default function Home() {
               <tr>
                 <th>血質</th>
                 <td>
-                  {origins.get(selected)!.bloodtinge + bloodtinge}
+                  {selectedOrigin.bloodtinge + bloodtinge}
                 </td>
                 <td>
                   <BloodtingeButton value={-10} text="-10"/>
@@ -363,7 +364,7 @@ export default function Home() {
               <tr>
                 <th>神秘</th>
                 <td>
-                  {origins.get(selected)!.arcane + arcane}
+                  {selectedOrigin.arcane + arcane}
                 </td>
                 <td>
                   <ArcaneButton value={-10} text="-10"/>
