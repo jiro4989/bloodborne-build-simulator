@@ -163,11 +163,13 @@ export default function Home() {
   const [endurance, setEndurance] = useState<number>(0)
   const [strength, setStrength] = useState<number>(0)
   const [skill, setSkill] = useState<number>(0)
+  const [bloodtinge, setBloodtinge] = useState<number>(0)
 
   const maxVitality = 99 - origins.get(selected)!.vitality
   const maxEndurance = 99 - origins.get(selected)!.endurance
   const maxStrength = 99 - origins.get(selected)!.strength
   const maxSkill = 99 - origins.get(selected)!.skill
+  const maxBloodtinge = 99 - origins.get(selected)!.bloodtinge
 
   function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
     if (value < min) {
@@ -204,6 +206,12 @@ export default function Home() {
   const SkillButton = ({value, text}: {value: number, text: string}) => {
     return (
       <button type="button" onClick={e => setValueWithValidation(skill + value, setSkill, 0, maxSkill)}>{text}</button>
+    )
+  }
+
+  const BloodtingeButton = ({value, text}: {value: number, text: string}) => {
+    return (
+      <button type="button" onClick={e => setValueWithValidation(bloodtinge + value, setBloodtinge, 0, maxBloodtinge)}>{text}</button>
     )
   }
 
@@ -315,7 +323,23 @@ export default function Home() {
 
               <tr>
                 <th>血質</th>
-                <td></td>
+                <td>
+                  {origins.get(selected)!.bloodtinge + bloodtinge}
+                </td>
+                <td>
+                  <BloodtingeButton value={-10} text="-10"/>
+                  <BloodtingeButton value={-1} text="-1"/>
+                  <input
+                    type="range"
+                    min="0"
+                    max={maxBloodtinge}
+                    step="1"
+                    value={bloodtinge}
+                    onChange={e => setBloodtinge(Number(e.target.value))}
+                    />
+                  <BloodtingeButton value={+1} text="+1"/>
+                  <BloodtingeButton value={+10} text="+10"/>
+                </td>
               </tr>
 
               <tr>
