@@ -161,9 +161,11 @@ export default function Home() {
   const [selected, setSelected] = useState<string>("milquetoast")
   const [vitality, setVitality] = useState<number>(0)
   const [endurance, setEndurance] = useState<number>(0)
+  const [strength, setStrength] = useState<number>(0)
 
   const maxVitality = 99 - origins.get(selected)!.vitality
   const maxEndurance = 99 - origins.get(selected)!.endurance
+  const maxStrength = 99 - origins.get(selected)!.strength
 
   function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
     if (value < min) {
@@ -188,6 +190,12 @@ export default function Home() {
   const EnduranceButton = ({value, text}: {value: number, text: string}) => {
     return (
       <button type="button" onClick={e => setValueWithValidation(endurance + value, setEndurance, 0, maxEndurance)}>{text}</button>
+    )
+  }
+
+  const StrengthButton = ({value, text}: {value: number, text: string}) => {
+    return (
+      <button type="button" onClick={e => setValueWithValidation(strength + value, setStrength, 0, maxEndurance)}>{text}</button>
     )
   }
 
@@ -257,7 +265,23 @@ export default function Home() {
 
               <tr>
                 <th>筋力</th>
-                <td></td>
+                <td>
+                  {origins.get(selected)!.strength + strength}
+                </td>
+                <td>
+                  <StrengthButton value={-10} text="-10"/>
+                  <StrengthButton value={-1} text="-1"/>
+                  <input
+                    type="range"
+                    min="0"
+                    max={maxStrength}
+                    step="1"
+                    value={strength}
+                    onChange={e => setStrength(Number(e.target.value))}
+                    />
+                  <StrengthButton value={+1} text="+1"/>
+                  <StrengthButton value={+10} text="+10"/>
+                </td>
               </tr>
 
               <tr>
