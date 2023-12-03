@@ -183,7 +183,7 @@ export default function Home() {
   const defaultEndurance = fixQueryParam(searchParams.get("end"))
   const defaultStrength = fixQueryParam(searchParams.get("str"))
   const defaultSkill = fixQueryParam(searchParams.get("skl"))
-  const defaultBloodtinge = fixQueryParam(searchParams.get("bld"))
+  const defaultBloodtinge = fixQueryParam(searchParams.get("blt"))
   const defaultArcane = fixQueryParam(searchParams.get("arc"))
 
   const [selected, setSelected] = useState<string>(numberToOrigin[defaultOrigin].key)
@@ -266,7 +266,7 @@ export default function Home() {
   }
 
   function generateURL(build: string, origin: number, vitality: number, endurance: number, strength: number, skill: number, bloodtinge: number, arcane: number): string {
-    const url = `http://localhost:1323?bld=${build}&org=${origin}&vit=${vitality}&end=${endurance}&str=${strength}&skl=${skill}&bld=${bloodtinge}&arc=${arcane}`
+    const url = `http://localhost:1323?bld=${build}&org=${origin}&vit=${vitality}&end=${endurance}&str=${strength}&skl=${skill}&blt=${bloodtinge}&arc=${arcane}`
     return encodeURI(url)
   }
 
