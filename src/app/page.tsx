@@ -164,12 +164,14 @@ export default function Home() {
   const [strength, setStrength] = useState<number>(0)
   const [skill, setSkill] = useState<number>(0)
   const [bloodtinge, setBloodtinge] = useState<number>(0)
+  const [arcane, setArcane] = useState<number>(0)
 
   const maxVitality = 99 - origins.get(selected)!.vitality
   const maxEndurance = 99 - origins.get(selected)!.endurance
   const maxStrength = 99 - origins.get(selected)!.strength
   const maxSkill = 99 - origins.get(selected)!.skill
   const maxBloodtinge = 99 - origins.get(selected)!.bloodtinge
+  const maxArcane = 99 - origins.get(selected)!.arcane
 
   function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
     if (value < min) {
@@ -212,6 +214,12 @@ export default function Home() {
   const BloodtingeButton = ({value, text}: {value: number, text: string}) => {
     return (
       <button type="button" onClick={e => setValueWithValidation(bloodtinge + value, setBloodtinge, 0, maxBloodtinge)}>{text}</button>
+    )
+  }
+
+  const ArcaneButton = ({value, text}: {value: number, text: string}) => {
+    return (
+      <button type="button" onClick={e => setValueWithValidation(arcane + value, setArcane, 0, maxArcane)}>{text}</button>
     )
   }
 
@@ -344,7 +352,23 @@ export default function Home() {
 
               <tr>
                 <th>神秘</th>
-                <td></td>
+                <td>
+                  {origins.get(selected)!.arcane + arcane}
+                </td>
+                <td>
+                  <ArcaneButton value={-10} text="-10"/>
+                  <ArcaneButton value={-1} text="-1"/>
+                  <input
+                    type="range"
+                    min="0"
+                    max={maxArcane}
+                    step="1"
+                    value={arcane}
+                    onChange={e => setArcane(Number(e.target.value))}
+                    />
+                  <ArcaneButton value={+1} text="+1"/>
+                  <ArcaneButton value={+10} text="+10"/>
+                </td>
               </tr>
             </tbody>
           </table>
