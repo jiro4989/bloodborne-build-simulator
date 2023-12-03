@@ -167,6 +167,7 @@ function fixQueryParam(value: string | null): number {
 
 export default function Home() {
   const searchParams = useSearchParams()
+  const defaultOrigin = fixQueryParam(searchParams.get("org"))
   const defaultVitality = fixQueryParam(searchParams.get("vit"))
   const defaultEndurance = fixQueryParam(searchParams.get("end"))
   const defaultStrength = fixQueryParam(searchParams.get("str"))
@@ -174,7 +175,7 @@ export default function Home() {
   const defaultBloodtinge = fixQueryParam(searchParams.get("bld"))
   const defaultArcane = fixQueryParam(searchParams.get("arc"))
 
-  const [selected, setSelected] = useState<string>("milquetoast")
+  const [selected, setSelected] = useState<string>(numberToOrigin[defaultOrigin].key)
   const [vitality, setVitality] = useState<number>(defaultVitality)
   const [endurance, setEndurance] = useState<number>(defaultEndurance)
   const [strength, setStrength] = useState<number>(defaultStrength)
