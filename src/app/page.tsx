@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image'
 import { useState } from 'react'
+import { HPs } from './data'
 
 type OriginKey = "milquetoast" | "loneSurvivor" | "troubledChildhood" | "violentPast" | "professional" | "militaryVeteran" | "nobleScion" | "cruelFate" | "wasteOfSkin"
 
@@ -396,7 +397,7 @@ export default function Home() {
 
               <tr>
                 <th>HP</th>
-                <td>TODO</td>
+                <td>{HPs[selectedOrigin.vitality + vitality]}</td>
               </tr>
 
               <tr>
