@@ -162,10 +162,12 @@ export default function Home() {
   const [vitality, setVitality] = useState<number>(0)
   const [endurance, setEndurance] = useState<number>(0)
   const [strength, setStrength] = useState<number>(0)
+  const [skill, setSkill] = useState<number>(0)
 
   const maxVitality = 99 - origins.get(selected)!.vitality
   const maxEndurance = 99 - origins.get(selected)!.endurance
   const maxStrength = 99 - origins.get(selected)!.strength
+  const maxSkill = 99 - origins.get(selected)!.skill
 
   function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
     if (value < min) {
@@ -195,7 +197,13 @@ export default function Home() {
 
   const StrengthButton = ({value, text}: {value: number, text: string}) => {
     return (
-      <button type="button" onClick={e => setValueWithValidation(strength + value, setStrength, 0, maxEndurance)}>{text}</button>
+      <button type="button" onClick={e => setValueWithValidation(strength + value, setStrength, 0, maxStrength)}>{text}</button>
+    )
+  }
+
+  const SkillButton = ({value, text}: {value: number, text: string}) => {
+    return (
+      <button type="button" onClick={e => setValueWithValidation(skill + value, setSkill, 0, maxSkill)}>{text}</button>
     )
   }
 
@@ -286,7 +294,23 @@ export default function Home() {
 
               <tr>
                 <th>技術</th>
-                <td></td>
+                <td>
+                  {origins.get(selected)!.skill + skill}
+                </td>
+                <td>
+                  <SkillButton value={-10} text="-10"/>
+                  <SkillButton value={-1} text="-1"/>
+                  <input
+                    type="range"
+                    min="0"
+                    max={maxSkill}
+                    step="1"
+                    value={skill}
+                    onChange={e => setSkill(Number(e.target.value))}
+                    />
+                  <SkillButton value={+1} text="+1"/>
+                  <SkillButton value={+10} text="+10"/>
+                </td>
               </tr>
 
               <tr>
