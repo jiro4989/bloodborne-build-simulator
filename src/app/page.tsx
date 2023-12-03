@@ -277,7 +277,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-between">
       <header className="p-8 text-2xl">
-        <h1>Bloodborne ビルドシミュレータ</h1>
+        <h1><a href="https://jiro4989.github.io/bloodborne-build-simulator/">Bloodborne ビルドシミュレータ</a></h1>
       </header>
 
       <div className="border rounded p-2">
