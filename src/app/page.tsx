@@ -179,6 +179,19 @@ export default function Home() {
     setValue(value)
   }
 
+  const Slider = ({value, setValue, max}: {value: number, setValue: React.Dispatch<React.SetStateAction<number>>, max: number}) => {
+    return (
+      <input
+        type="range"
+        min="0"
+        max={max}
+        step="1"
+        value={value}
+        onChange={e => setValue(Number(e.target.value))}
+        />
+    )
+  }
+
   const VitalityButton = ({value, text}: {value: number, text: string}) => {
     return (
       <button type="button" onClick={e => setValueWithValidation(vitality + value, setVitality, 0, maxVitality)}>{text}</button>
@@ -221,14 +234,7 @@ export default function Home() {
                 <td>
                   <VitalityButton value={-10} text="-10"/>
                   <VitalityButton value={-1} text="-1"/>
-                  <input
-                    type="range"
-                    min="0"
-                    max={maxVitality}
-                    step="1"
-                    value={vitality}
-                    onChange={e => setVitality(Number(e.target.value))}
-                    />
+                  <Slider value={vitality} setValue={setVitality} max={maxVitality} />
                   <VitalityButton value={+1} text="+1"/>
                   <VitalityButton value={+10} text="+10"/>
                 </td>
