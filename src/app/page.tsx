@@ -1,7 +1,7 @@
 "use client"
 import Image from 'next/image'
 import { useState } from 'react'
-import { HPs } from './data'
+import { HPs, Staminas } from './data'
 
 type OriginKey = "milquetoast" | "loneSurvivor" | "troubledChildhood" | "violentPast" | "professional" | "militaryVeteran" | "nobleScion" | "cruelFate" | "wasteOfSkin"
 
@@ -402,7 +402,7 @@ export default function Home() {
 
               <tr>
                 <th>スタミナ</th>
-                <td>TODO</td>
+                <td>{Staminas[selectedOrigin.endurance + endurance]}</td>
               </tr>
             </tbody>
           </table>
