@@ -2,6 +2,8 @@
 :toc: left
 :sectnums:
 
+image:./docs/toppage.png[Top page]
+
 Bloodborneのビルドシミュレータです。
 URL でビルドを共有できるものがほしかったので自作しました。
 
