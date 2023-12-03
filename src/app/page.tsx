@@ -1,6 +1,148 @@
 import Image from 'next/image'
 
+// 過去
+type Origin = {
+  // レベル
+  level: number
+  // 体力
+  vitality: number
+  // 持久力
+  endurance: number
+  // 筋力
+  strength: number
+  // 技術
+  skill: number
+  // 血質
+  bloodtinge: number
+  // 神秘
+  arcane: number
+}
+
+// 特筆なし
+const originMilquetoast: Origin = {
+  level: 10,
+  vitality: 11,
+  endurance: 10,
+  strength: 12,
+  skill: 10,
+  bloodtinge: 9,
+  arcane: 8,
+}
+
+// 村の生き残り
+const originLoneSurvivor: Origin = {
+  level: 10,
+  vitality: 14,
+  endurance: 11,
+  strength: 11,
+  skill: 10,
+  bloodtinge: 7,
+  arcane: 7,
+}
+
+// 悲惨な幼年期
+const originTroubledChildhood: Origin = {
+  level: 10,
+  vitality: 9,
+  endurance: 14,
+  strength: 9,
+  skill: 13,
+  bloodtinge: 6,
+  arcane: 9,
+}
+
+// 暴力的過去
+const originViolentPast: Origin = {
+  level: 10,
+  vitality: 12,
+  endurance: 11,
+  strength: 15,
+  skill: 9,
+  bloodtinge: 6,
+  arcane: 7,
+}
+
+// プロフェッショナル
+const originProfessional: Origin = {
+  level: 10,
+  vitality: 9,
+  endurance: 12,
+  strength: 9,
+  skill: 15,
+  bloodtinge: 7,
+  arcane: 8,
+}
+
+// 従軍経験
+const originMilitaryVeteran: Origin = {
+  level: 10,
+  vitality: 10,
+  endurance: 10,
+  strength: 14,
+  skill: 13,
+  bloodtinge: 7,
+  arcane: 6,
+}
+
+// 一族の末裔
+const originNobleScion: Origin = {
+  level: 10,
+  vitality: 7,
+  endurance: 8,
+  strength: 9,
+  skill: 13,
+  bloodtinge: 14,
+  arcane: 9,
+}
+
+// 過酷な運命
+const originCruelFate: Origin = {
+  level: 10,
+  vitality: 10,
+  endurance: 12,
+  strength: 10,
+  skill: 9,
+  bloodtinge: 5,
+  arcane: 14,
+}
+
+// 生まれるべきではなかった
+const originWasteOfSkin: Origin = {
+  level: 4,
+  vitality: 10,
+  endurance: 9,
+  strength: 10,
+  skill: 9,
+  bloodtinge: 7,
+  arcane: 9,
+}
+
+const origins = new Map<string, Origin>([
+  ["milquetoast", originMilquetoast],
+  ["loneSurvivor", originLoneSurvivor],
+  ["troubledChildhood", originTroubledChildhood],
+  ["violentPast", originViolentPast],
+  ["professional", originProfessional],
+  ["militaryVeteran", originMilitaryVeteran],
+  ["nobleScion", originNobleScion],
+  ["cruelFate", originCruelFate],
+  ["wasteOfSkin", originWasteOfSkin],
+])
+
+const numberToOriginKey: string[] = [
+  "milquetoast",
+  "loneSurvivor",
+  "troubledChildhood",
+  "violentPast",
+  "professional",
+  "militaryVeteran",
+  "nobleScion",
+  "cruelFate",
+  "wasteOfSkin",
+]
+
 export default function Home() {
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <header>
