@@ -391,7 +391,7 @@ export default function Home() {
             <tbody>
               <tr>
                 <th>レベル</th>
-                <td>TODO</td>
+                <td>{selectedOrigin.level + vitality + endurance + strength + skill + bloodtinge + arcane}</td>
               </tr>
 
               <tr>
