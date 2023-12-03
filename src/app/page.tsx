@@ -177,6 +177,7 @@ function fixQueryParam(value: string | null): number {
 
 export default function Home() {
   const searchParams = useSearchParams()
+  const defaultBuild = searchParams.get("bld") || ""
   const defaultOrigin = fixQueryParam(searchParams.get("org"))
   const defaultVitality = fixQueryParam(searchParams.get("vit"))
   const defaultEndurance = fixQueryParam(searchParams.get("end"))
@@ -186,7 +187,7 @@ export default function Home() {
   const defaultArcane = fixQueryParam(searchParams.get("arc"))
 
   const [selected, setSelected] = useState<string>(numberToOrigin[defaultOrigin].key)
-  const [buildName, setBuildName] = useState<string>("")
+  const [buildName, setBuildName] = useState<string>(decodeURI(defaultBuild))
   const [vitality, setVitality] = useState<number>(defaultVitality)
   const [endurance, setEndurance] = useState<number>(defaultEndurance)
   const [strength, setStrength] = useState<number>(defaultStrength)
