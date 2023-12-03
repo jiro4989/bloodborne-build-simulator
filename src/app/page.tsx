@@ -237,6 +237,8 @@ export default function Home() {
     )
   }
 
+  const sliderClass = "w-60 m-2"
+
   return (
     <main className="flex flex-col items-center justify-between">
       <header className="p-8 text-2xl">
@@ -249,10 +251,10 @@ export default function Home() {
           <table className="m-4">
             <tbody>
               <tr>
-                <th>過去</th>
+                <th className="w-20">過去</th>
                 <td className="w-8"></td>
                 <td>
-                  <select value={selected} onChange={e => resetStatus(e.target.value)}>
+                  <select className="text-black" value={selected} onChange={e => resetStatus(e.target.value)}>
                     {
                       numberToOrigin.map((v,i) => <option key={v.key} value={v.key}>{v.name}</option>)
                     }
@@ -269,6 +271,7 @@ export default function Home() {
                   <VitalityButton value={-10} text="-10"/>
                   <VitalityButton value={-1} text="-1"/>
                   <input
+                    className={sliderClass}
                     type="range"
                     min="0"
                     max={maxVitality}
@@ -290,6 +293,7 @@ export default function Home() {
                   <EnduranceButton value={-10} text="-10"/>
                   <EnduranceButton value={-1} text="-1"/>
                   <input
+                    className={sliderClass}
                     type="range"
                     min="0"
                     max={maxEndurance}
@@ -311,6 +315,7 @@ export default function Home() {
                   <StrengthButton value={-10} text="-10"/>
                   <StrengthButton value={-1} text="-1"/>
                   <input
+                    className={sliderClass}
                     type="range"
                     min="0"
                     max={maxStrength}
@@ -332,6 +337,7 @@ export default function Home() {
                   <SkillButton value={-10} text="-10"/>
                   <SkillButton value={-1} text="-1"/>
                   <input
+                    className={sliderClass}
                     type="range"
                     min="0"
                     max={maxSkill}
@@ -353,6 +359,7 @@ export default function Home() {
                   <BloodtingeButton value={-10} text="-10"/>
                   <BloodtingeButton value={-1} text="-1"/>
                   <input
+                    className={sliderClass}
                     type="range"
                     min="0"
                     max={maxBloodtinge}
@@ -374,6 +381,7 @@ export default function Home() {
                   <ArcaneButton value={-10} text="-10"/>
                   <ArcaneButton value={-1} text="-1"/>
                   <input
+                    className={sliderClass}
                     type="range"
                     min="0"
                     max={maxArcane}
