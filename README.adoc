@@ -32,6 +32,7 @@ URL でビルドを共有できるものがほしかったので自作しまし�
 
 * Next.js
 * TypeScript
+* Tailwind CSS
 
 === ローカル環境で起動する
 
