@@ -266,9 +266,10 @@ export default function Home() {
   }
 
   function generateURL(build: string, origin: number, vitality: number, endurance: number, strength: number, skill: number, bloodtinge: number, arcane: number): string {
+    const encodedBuild = encodeURIComponent(build)
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL
-    const url = `${baseURL}?bld=${build}&org=${origin}&vit=${vitality}&end=${endurance}&str=${strength}&skl=${skill}&blt=${bloodtinge}&arc=${arcane}`
-    return encodeURI(url)
+    const url = `${baseURL}?bld=${encodedBuild}&org=${origin}&vit=${vitality}&end=${endurance}&str=${strength}&skl=${skill}&blt=${bloodtinge}&arc=${arcane}`
+    return url
   }
 
   const sliderClass = "w-28 md:w-40 lg:w-60 m-2"
