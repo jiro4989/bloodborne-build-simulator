@@ -227,7 +227,7 @@ export default function Home() {
     setValue(value)
   }
 
-  const buttonClass = "bg-white text-black p-1 m-1 rounded w-12"
+  const buttonClass = "bg-white text-black p-0.5 md:p-1 m-0.5 md:m-1 rounded w-10 md:w-12"
 
   const VitalityButton = ({value, text}: {value: number, text: string}) => {
     return (
@@ -271,16 +271,16 @@ export default function Home() {
     return encodeURI(url)
   }
 
-  const sliderClass = "w-60 m-2"
+  const sliderClass = "w-28 md:w-40 lg:w-60 m-2"
   const shareURL = generateURL(buildName, searchOriginIndex(selected), vitality, endurance, strength, skill, bloodtinge, arcane)
 
   return (
     <main className="flex flex-col items-center justify-between">
-      <header className="p-8 text-2xl">
+      <header className="p-8 text-xl md:text-2xl">
         <h1><a href="https://jiro4989.github.io/bloodborne-build-simulator/">Bloodborne ビルドシミュレータ</a></h1>
       </header>
 
-      <div className="border rounded p-2">
+      <div className="border rounded p-2 text-sm md:text-base">
         <section className="m-2 border-b-2 border-dotted">
           <h2 className="text-xl">入力</h2>
           <table className="m-4">
