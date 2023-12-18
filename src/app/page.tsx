@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { HPs, Staminas } from './data'
 import { useSearchParams  } from "next/navigation";
 
@@ -175,6 +175,16 @@ function fixQueryParam(value: string | null): number {
   return parseInt(value)
 }
 
+function setDocumentTitle(name: string) {
+  if (process.browser) {
+    if (name !== "") {
+      document.title = `${name} | Bloodborne ビルドシミュレータ`
+    } else {
+      document.title = "Bloodborne ビルドシミュレータ"
+    }
+  }
+}
+
 export default function Home() {
   const searchParams = useSearchParams()
   const defaultBuild = searchParams.get("bld") || ""
@@ -271,6 +281,10 @@ export default function Home() {
     const url = `${baseURL}?bld=${encodedBuild}&org=${origin}&vit=${vitality}&end=${endurance}&str=${strength}&skl=${skill}&blt=${bloodtinge}&arc=${arcane}`
     return url
   }
+
+  useEffect(() => {
+    setDocumentTitle(buildName)
+  })
 
   const sliderClass = "w-28 md:w-40 lg:w-60 m-2"
   const shareURL = generateURL(buildName, searchOriginIndex(selected), vitality, endurance, strength, skill, bloodtinge, arcane)
