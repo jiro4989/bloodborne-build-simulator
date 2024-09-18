@@ -7,9 +7,6 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Bloodborne ビルドシミュレータ',
   description: 'Bloodborne のビルドシミュレータです。ステータス計算のみサポートしています。',
-  robots: {
-    index: true,
-  },
 }
 
 export default function RootLayout({
