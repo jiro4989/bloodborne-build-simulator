@@ -12,18 +12,6 @@ vi.mock('next/navigation', () => ({
     useSearchParams,
 }))
 
-// describe('正常系: クエリストリングが空の場合は', () => {
-//     const { getByRole } = render(<Simulator />)
-
-//     test('サイト名が h1 に設定される', () => {
-//         expect(getByRole('heading', { level: 1, name: 'Bloodborne ビルドシミュレータ' })).toBeDefined()
-//     })
-
-//     test('document.title にサイト名が設定される', () => {
-//         expect(document.title).toBe('Bloodborne ビルドシミュレータ')
-//     })
-// })
-
 describe('正常系: クエリストリングが設定されている場合は', () => {
     useSearchParams.mockReturnValue(new URLSearchParams({
         bld: 'sushi',
@@ -35,21 +23,6 @@ describe('正常系: クエリストリングが設定されている場合は',
         blt: '1',
         arc: '2',
     }))
-    // useSearchParams.mockReturnValue({
-    //     get: (key: string) => {
-    //         const data = new Map(Object.entries({
-    //             bld: 'sushi',
-    //             org: '0',
-    //             vit: '0',
-    //             end: '0',
-    //             str: '0',
-    //             skl: '0',
-    //             blt: '0',
-    //             arc: '0',
-    //         }))
-    //         return vi.fn().mockReturnValue(data.get(key))
-    //     },
-    // })
 
     const { container, getByRole } = render(<Simulator />)
 
