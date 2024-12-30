@@ -70,6 +70,26 @@ describe('正常系: クエリストリングが設定されている場合は',
             id: 'arcaneText',
             want: '9',
         },
+        {
+            desc: 'レベルは 25 である',
+            id: 'levelText',
+            want: '25',
+        },
+        {
+            desc: 'HPは 698 である',
+            id: 'hpText',
+            want: '698',
+        },
+        {
+            desc: 'スタミナは 98 である',
+            id: 'staminaText',
+            want: '98',
+        },
+        {
+            desc: 'URL がセットされている',
+            id: 'urlText',
+            want: 'undefined?bld=sushi&org=1&vit=2&end=3&str=4&skl=3&blt=1&arc=2',
+        },
     ]
     test.each(paramTests)(`$desc`, ({ id, want }) => {
         const got = container.querySelector<HTMLElement>(`[data-testid="${id}"]`)

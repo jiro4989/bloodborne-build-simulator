@@ -461,17 +461,17 @@ export default function Simulator() {
             <tbody>
               <tr>
                 <th>レベル</th>
-                <td>{selectedOrigin.level + vitality + endurance + strength + skill + bloodtinge + arcane}</td>
+                <td data-testid="levelText">{selectedOrigin.level + vitality + endurance + strength + skill + bloodtinge + arcane}</td>
               </tr>
 
               <tr>
                 <th>HP</th>
-                <td>{HPs[selectedOrigin.vitality + vitality]}</td>
+                <td data-testid="hpText">{HPs[selectedOrigin.vitality + vitality]}</td>
               </tr>
 
               <tr>
                 <th>スタミナ</th>
-                <td>{Staminas[selectedOrigin.endurance + endurance]}</td>
+                <td data-testid="staminaText">{Staminas[selectedOrigin.endurance + endurance]}</td>
               </tr>
             </tbody>
           </table>
@@ -486,7 +486,7 @@ export default function Simulator() {
           <details>
             <summary>折りたたみを展開する</summary>
             <p className="m-4 w-80 break-words">
-              <a className="text-cyan-300" href={shareURL}>{shareURL}</a>
+              <a data-testid="urlText" className="text-cyan-300" href={shareURL}>{shareURL}</a>
             </p>
           </details>
         </section>
