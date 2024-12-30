@@ -176,7 +176,7 @@ function fixQueryParam(value: string | null): number {
 }
 
 function setDocumentTitle(name: string) {
-  if (process.browser) {
+  if (window) {
     if (name !== "") {
       document.title = `${name} | Bloodborne ビルドシミュレータ`
     } else {
