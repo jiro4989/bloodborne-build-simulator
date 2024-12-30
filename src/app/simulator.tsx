@@ -312,7 +312,7 @@ export default function Simulator() {
                 <th>過去</th>
                 <td></td>
                 <td>
-                  <select className="text-black" value={selected} onChange={e => resetStatus(e.target.value)}>
+                  <select data-testid="originText" className="text-black" value={selected} onChange={e => resetStatus(e.target.value)}>
                     {
                       numberToOrigin.map((v,i) => <option key={v.key} value={v.key}>{v.name}</option>)
                     }
@@ -322,7 +322,7 @@ export default function Simulator() {
 
               <tr>
                 <th>体力</th>
-                <td>
+                <td data-testid="vitalityText">
                   {selectedOrigin.vitality + vitality}
                 </td>
                 <td>
@@ -344,7 +344,7 @@ export default function Simulator() {
 
               <tr>
                 <th>持久力</th>
-                <td>
+                <td data-testid="enduranceText">
                   {selectedOrigin.endurance + endurance}
                 </td>
                 <td>
@@ -366,7 +366,7 @@ export default function Simulator() {
 
               <tr>
                 <th>筋力</th>
-                <td>
+                <td data-testid="strengthText">
                   {selectedOrigin.strength + strength}
                 </td>
                 <td>
@@ -388,7 +388,7 @@ export default function Simulator() {
 
               <tr>
                 <th>技術</th>
-                <td>
+                <td data-testid="skillText">
                   {selectedOrigin.skill + skill}
                 </td>
                 <td>
@@ -410,7 +410,7 @@ export default function Simulator() {
 
               <tr>
                 <th>血質</th>
-                <td>
+                <td data-testid="bloodtingeText">
                   {selectedOrigin.bloodtinge + bloodtinge}
                 </td>
                 <td>
@@ -432,7 +432,7 @@ export default function Simulator() {
 
               <tr>
                 <th>神秘</th>
-                <td>
+                <td data-testid="arcaneText">
                   {selectedOrigin.arcane + arcane}
                 </td>
                 <td>
