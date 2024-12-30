@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react'
 import { HPs, Staminas } from './data'
-import { useSearchParams  } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 type OriginKey = "milquetoast" | "loneSurvivor" | "troubledChildhood" | "violentPast" | "professional" | "militaryVeteran" | "nobleScion" | "cruelFate" | "wasteOfSkin"
 
