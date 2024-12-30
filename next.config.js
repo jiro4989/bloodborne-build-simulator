@@ -3,7 +3,6 @@ const nextConfig = {
   assetPrefix: process.env.ASSET_PREFIX,
   output: 'export', // 静的ファイル出力を有効化
   reactStrictMode: true,
-  swcMinify: true,
   webpack: (config, context) => {
     config.watchOptions = {
       poll: 1000,
