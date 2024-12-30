@@ -1,7 +1,7 @@
 "use client"
 import { useState, useEffect } from 'react'
 import { HPs, Staminas } from './data'
-import { useSearchParams  } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 type OriginKey = "milquetoast" | "loneSurvivor" | "troubledChildhood" | "violentPast" | "professional" | "militaryVeteran" | "nobleScion" | "cruelFate" | "wasteOfSkin"
 
@@ -176,7 +176,7 @@ function fixQueryParam(value: string | null): number {
 }
 
 function setDocumentTitle(name: string) {
-  if (process.browser) {
+  if (window) {
     if (name !== "") {
       document.title = `${name} | Bloodborne ビルドシミュレータ`
     } else {
@@ -312,7 +312,7 @@ export default function Simulator() {
                 <th>過去</th>
                 <td></td>
                 <td>
-                  <select className="text-black" value={selected} onChange={e => resetStatus(e.target.value)}>
+                  <select data-testid="originText" className="text-black" value={selected} onChange={e => resetStatus(e.target.value)}>
                     {
                       numberToOrigin.map((v,i) => <option key={v.key} value={v.key}>{v.name}</option>)
                     }
@@ -322,7 +322,7 @@ export default function Simulator() {
 
               <tr>
                 <th>体力</th>
-                <td>
+                <td data-testid="vitalityText">
                   {selectedOrigin.vitality + vitality}
                 </td>
                 <td>
@@ -344,7 +344,7 @@ export default function Simulator() {
 
               <tr>
                 <th>持久力</th>
-                <td>
+                <td data-testid="enduranceText">
                   {selectedOrigin.endurance + endurance}
                 </td>
                 <td>
@@ -366,7 +366,7 @@ export default function Simulator() {
 
               <tr>
                 <th>筋力</th>
-                <td>
+                <td data-testid="strengthText">
                   {selectedOrigin.strength + strength}
                 </td>
                 <td>
@@ -388,7 +388,7 @@ export default function Simulator() {
 
               <tr>
                 <th>技術</th>
-                <td>
+                <td data-testid="skillText">
                   {selectedOrigin.skill + skill}
                 </td>
                 <td>
@@ -410,7 +410,7 @@ export default function Simulator() {
 
               <tr>
                 <th>血質</th>
-                <td>
+                <td data-testid="bloodtingeText">
                   {selectedOrigin.bloodtinge + bloodtinge}
                 </td>
                 <td>
@@ -432,7 +432,7 @@ export default function Simulator() {
 
               <tr>
                 <th>神秘</th>
-                <td>
+                <td data-testid="arcaneText">
                   {selectedOrigin.arcane + arcane}
                 </td>
                 <td>
@@ -461,17 +461,17 @@ export default function Simulator() {
             <tbody>
               <tr>
                 <th>レベル</th>
-                <td>{selectedOrigin.level + vitality + endurance + strength + skill + bloodtinge + arcane}</td>
+                <td data-testid="levelText">{selectedOrigin.level + vitality + endurance + strength + skill + bloodtinge + arcane}</td>
               </tr>
 
               <tr>
                 <th>HP</th>
-                <td>{HPs[selectedOrigin.vitality + vitality]}</td>
+                <td data-testid="hpText">{HPs[selectedOrigin.vitality + vitality]}</td>
               </tr>
 
               <tr>
                 <th>スタミナ</th>
-                <td>{Staminas[selectedOrigin.endurance + endurance]}</td>
+                <td data-testid="staminaText">{Staminas[selectedOrigin.endurance + endurance]}</td>
               </tr>
             </tbody>
           </table>
@@ -486,7 +486,7 @@ export default function Simulator() {
           <details>
             <summary>折りたたみを展開する</summary>
             <p className="m-4 w-80 break-words">
-              <a className="text-cyan-300" href={shareURL}>{shareURL}</a>
+              <a data-testid="urlText" className="text-cyan-300" href={shareURL}>{shareURL}</a>
             </p>
           </details>
         </section>
