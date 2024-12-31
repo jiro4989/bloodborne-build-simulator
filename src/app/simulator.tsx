@@ -392,7 +392,14 @@ export default function Simulator() {
               <div className='m-4'>
                 <ul className='list-disc'>
                   <li>
-                    <input data-testid="urlTextInput" className={textInputClass} type="text" defaultValue={shareURL} readOnly />
+                    <input
+                      data-testid="urlTextInput"
+                      className={textInputClass}
+                      type="text"
+                      defaultValue={shareURL}
+                      readOnly
+                      onFocus={e => e.target.select()}
+                      />
                     （<a data-testid="urlTextLink" className="text-cyan-300" href={shareURL}>共有用 URL</a>）
                   </li>
                 </ul>
