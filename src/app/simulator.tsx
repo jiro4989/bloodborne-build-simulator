@@ -302,12 +302,12 @@ export default function Simulator() {
 
       <div className="border rounded p-2 text-sm md:text-base">
         <section className="m-2 border-b-2 border-dotted">
-          <h2 className="text-xl">入力</h2>
+          <h2 className="text-xl"><ruby>入力<rp>(</rp><rt>にゅうりょく</rt><rp>)</rp></ruby></h2>
           <div className='m-4'>
             <table>
               <tbody>
                 <tr>
-                  <th className="w-20">ビルド名</th>
+                  <th className="w-20">ビルド<ruby>名<rp>(</rp><rt>めい</rt><rp>)</rp></ruby></th>
                   <td className="w-8"></td>
                   <td>
                     <input className={textInputClass} type="text" value={buildName} autoFocus placeholder='例：上質ビルド' aria-label='分かりやすいビルド名を入力します' onChange={e => setBuildName(e.target.value)} />
@@ -315,7 +315,7 @@ export default function Simulator() {
                 </tr>
 
                 <tr>
-                  <th>過去</th>
+                  <th><ruby>過去<rp>(</rp><rt>かこ</rt><rp>)</rp></ruby></th>
                   <td></td>
                   <td>
                     <select data-testid="originText" className="text-black p-1 rounded" value={selected} aria-label='過去を選択します' onChange={e => resetStatus(e.target.value)}>
@@ -328,15 +328,20 @@ export default function Simulator() {
 
                 {
                   [
-                    {desc: '体力', id: 'vitalityText', baseValue: selectedOrigin.vitality, additionalValue: vitality, max: maxVitality, setValue: setVitality},
-                    {desc: '持久力', id: 'enduranceText', baseValue: selectedOrigin.endurance, additionalValue: endurance, max: maxEndurance, setValue: setEndurance},
-                    {desc: '筋力', id: 'strengthText', baseValue: selectedOrigin.strength, additionalValue: strength, max: maxStrength, setValue: setStrength},
-                    {desc: '技術', id: 'skillText', baseValue: selectedOrigin.skill, additionalValue: skill, max: maxSkill, setValue: setSkill},
-                    {desc: '血質', id: 'bloodtingeText', baseValue: selectedOrigin.bloodtinge, additionalValue: bloodtinge, max: maxBloodtinge, setValue: setBloodtinge},
-                    {desc: '神秘', id: 'arcaneText', baseValue: selectedOrigin.arcane, additionalValue: arcane, max: maxArcane, setValue: setArcane},
+                    {desc: '体力', ruby: 'たいりょく', id: 'vitalityText', baseValue: selectedOrigin.vitality, additionalValue: vitality, max: maxVitality, setValue: setVitality},
+                    {desc: '持久力', ruby: 'じきゅうりょく', id: 'enduranceText', baseValue: selectedOrigin.endurance, additionalValue: endurance, max: maxEndurance, setValue: setEndurance},
+                    {desc: '筋力', ruby: 'きんりょく', id: 'strengthText', baseValue: selectedOrigin.strength, additionalValue: strength, max: maxStrength, setValue: setStrength},
+                    {desc: '技術', ruby: 'ぎじゅつ', id: 'skillText', baseValue: selectedOrigin.skill, additionalValue: skill, max: maxSkill, setValue: setSkill},
+                    {desc: '血質', ruby: 'けっしつ', id: 'bloodtingeText', baseValue: selectedOrigin.bloodtinge, additionalValue: bloodtinge, max: maxBloodtinge, setValue: setBloodtinge},
+                    {desc: '神秘', ruby: 'しんぴ', id: 'arcaneText', baseValue: selectedOrigin.arcane, additionalValue: arcane, max: maxArcane, setValue: setArcane},
                   ].map((v) => (
                     <tr key={v.id}>
-                      <th>{v.desc}</th>
+                      <th>
+                        <ruby>
+                          {v.desc}
+                          <rp>(</rp><rt>{v.ruby}</rt><rp>)</rp>
+                        </ruby>
+                      </th>
                       <td data-testid={v.id}>
                         {v.baseValue + v.additionalValue}
                       </td>
@@ -358,7 +363,7 @@ export default function Simulator() {
         </section>
 
         <section className="m-2">
-          <h2 className="text-xl">計算結果</h2>
+          <h2 className="text-xl"><ruby>計算結果<rp>(</rp><rt>けいさんけっか</rt><rp>)</rp></ruby></h2>
           <div className="m-4">
             <table>
               <tbody>
@@ -382,12 +387,14 @@ export default function Simulator() {
         </section>
 
         <section className="m-2">
-          <h2 className="text-xl">共有</h2>
+          <h2 className="text-xl"><ruby>共有<rp>(</rp><rt>きょうゆう</rt><rp>)</rp></ruby></h2>
           <div className='m-4'>
             <label>
               <p>
-                以下の URL をブックマークすることで、今のビルドを保存できます。<br/>
-                URL をコピーして共有すれば、他の人にビルドを紹介できます。
+                <ruby>以下<rp>(</rp><rt>いか</rt><rp>)</rp></ruby>の URL をブックマークすることで、
+                <ruby>今<rp>(</rp><rt>いま</rt><rp>)</rp></ruby>のビルドを<ruby>保存<rp>(</rp><rt>ほぞん</rt><rp>)</rp></ruby>できます。<br/>
+                URL をコピーして<ruby>共有<rp>(</rp><rt>きょうゆう</rt><rp>)</rp></ruby>すれば、
+                <ruby>他<rp>(</rp><rt>ほか</rt><rp>)</rp></ruby>の<ruby>人<rp>(</rp><rt>ひと</rt><rp>)</rp></ruby>にビルドを<ruby>紹介<rp>(</rp><rt>しょうかい</rt><rp>)</rp></ruby>できます。
               </p>
               <div className='m-4'>
                 <ul className='list-disc'>
