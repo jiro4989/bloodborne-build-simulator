@@ -187,6 +187,7 @@ function setDocumentTitle(name: string) {
 
 const sliderClass = "w-28 md:w-40 lg:w-60 m-2"
 const buttonClass = "bg-white text-black p-0.5 md:p-1 m-0.5 md:m-1 rounded w-10 md:w-12"
+const textInputClass = "w-80 text-black p-1 rounded"
 
 function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
   if (value < min) {
@@ -302,92 +303,110 @@ export default function Simulator() {
       <div className="border rounded p-2 text-sm md:text-base">
         <section className="m-2 border-b-2 border-dotted">
           <h2 className="text-xl">入力</h2>
-          <table className="m-4">
-            <tbody>
-              <tr>
-                <th className="w-20">ビルド名</th>
-                <td className="w-8"></td>
-                <td>
-                  <input className="w-80 text-black" type="text" value={buildName} autoFocus placeholder='例：上質ビルド' aria-label='分かりやすいビルド名を入力します' onChange={e => setBuildName(e.target.value)} />
-                </td>
-              </tr>
+          <div className='m-4'>
+            <p className='m-1'>以下の入力値を変更すると、計算結果と共有に自動反映されます。</p>
+            <table>
+              <tbody>
+                <tr>
+                  <th className="w-20">ビルド名</th>
+                  <td className="w-8"></td>
+                  <td>
+                    <input className={textInputClass} type="text" value={buildName} autoFocus placeholder='例：上質ビルド' aria-label='分かりやすいビルド名を入力します' onChange={e => setBuildName(e.target.value)} />
+                  </td>
+                </tr>
 
-              <tr>
-                <th>過去</th>
-                <td></td>
-                <td>
-                  <select data-testid="originText" className="text-black" value={selected} aria-label='過去を選択します' onChange={e => resetStatus(e.target.value)}>
-                    {
-                      numberToOrigin.map((v,i) => <option key={v.key} value={v.key}>{v.name}</option>)
-                    }
-                  </select>
-                </td>
-              </tr>
+                <tr>
+                  <th>過去</th>
+                  <td></td>
+                  <td>
+                    <select data-testid="originText" className="text-black p-1 rounded" value={selected} aria-label='過去を選択します' onChange={e => resetStatus(e.target.value)}>
+                      {
+                        numberToOrigin.map((v,i) => <option key={v.key} value={v.key}>{v.name}</option>)
+                      }
+                    </select>
+                  </td>
+                </tr>
 
-              {
-                [
-                  {desc: '体力', id: 'vitalityText', baseValue: selectedOrigin.vitality, additionalValue: vitality, max: maxVitality, setValue: setVitality},
-                  {desc: '持久力', id: 'enduranceText', baseValue: selectedOrigin.endurance, additionalValue: endurance, max: maxEndurance, setValue: setEndurance},
-                  {desc: '筋力', id: 'strengthText', baseValue: selectedOrigin.strength, additionalValue: strength, max: maxStrength, setValue: setStrength},
-                  {desc: '技術', id: 'skillText', baseValue: selectedOrigin.skill, additionalValue: skill, max: maxSkill, setValue: setSkill},
-                  {desc: '血質', id: 'bloodtingeText', baseValue: selectedOrigin.bloodtinge, additionalValue: bloodtinge, max: maxBloodtinge, setValue: setBloodtinge},
-                  {desc: '神秘', id: 'arcaneText', baseValue: selectedOrigin.arcane, additionalValue: arcane, max: maxArcane, setValue: setArcane},
-                ].map((v) => (
-                  <tr key={v.id}>
-                    <th>{v.desc}</th>
-                    <td data-testid={v.id}>
-                      {v.baseValue + v.additionalValue}
-                    </td>
-                    <td>
-                      <ChangeParameterInputs
-                        statusName={v.desc}
-                        currentValue={v.baseValue + v.additionalValue}
-                        additionalValue={v.additionalValue}
-                        max={v.max}
-                        setValue={v.setValue}
-                        />
-                    </td>
-                  </tr>
-                ))
-              }
-            </tbody>
-          </table>
+                {
+                  [
+                    {desc: '体力', id: 'vitalityText', baseValue: selectedOrigin.vitality, additionalValue: vitality, max: maxVitality, setValue: setVitality},
+                    {desc: '持久力', id: 'enduranceText', baseValue: selectedOrigin.endurance, additionalValue: endurance, max: maxEndurance, setValue: setEndurance},
+                    {desc: '筋力', id: 'strengthText', baseValue: selectedOrigin.strength, additionalValue: strength, max: maxStrength, setValue: setStrength},
+                    {desc: '技術', id: 'skillText', baseValue: selectedOrigin.skill, additionalValue: skill, max: maxSkill, setValue: setSkill},
+                    {desc: '血質', id: 'bloodtingeText', baseValue: selectedOrigin.bloodtinge, additionalValue: bloodtinge, max: maxBloodtinge, setValue: setBloodtinge},
+                    {desc: '神秘', id: 'arcaneText', baseValue: selectedOrigin.arcane, additionalValue: arcane, max: maxArcane, setValue: setArcane},
+                  ].map((v) => (
+                    <tr key={v.id}>
+                      <th>{v.desc}</th>
+                      <td data-testid={v.id}>
+                        {v.baseValue + v.additionalValue}
+                      </td>
+                      <td>
+                        <ChangeParameterInputs
+                          statusName={v.desc}
+                          currentValue={v.baseValue + v.additionalValue}
+                          additionalValue={v.additionalValue}
+                          max={v.max}
+                          setValue={v.setValue}
+                          />
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section className="m-2">
           <h2 className="text-xl">計算結果</h2>
-          <table className="m-4">
-            <tbody>
-              <tr>
-                <th>レベル</th>
-                <td data-testid="levelText">{selectedOrigin.level + vitality + endurance + strength + skill + bloodtinge + arcane}</td>
-              </tr>
+          <div className="m-4">
+            <table>
+              <tbody>
+                <tr>
+                  <th>レベル</th>
+                  <td data-testid="levelText">{selectedOrigin.level + vitality + endurance + strength + skill + bloodtinge + arcane}</td>
+                </tr>
 
-              <tr>
-                <th>HP</th>
-                <td data-testid="hpText">{HPs[selectedOrigin.vitality + vitality]}</td>
-              </tr>
+                <tr>
+                  <th>HP</th>
+                  <td data-testid="hpText">{HPs[selectedOrigin.vitality + vitality]}</td>
+                </tr>
 
-              <tr>
-                <th>スタミナ</th>
-                <td data-testid="staminaText">{Staminas[selectedOrigin.endurance + endurance]}</td>
-              </tr>
-            </tbody>
-          </table>
+                <tr>
+                  <th>スタミナ</th>
+                  <td data-testid="staminaText">{Staminas[selectedOrigin.endurance + endurance]}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section className="m-2">
           <h2 className="text-xl">共有</h2>
-          <p className="m-4">
-            以下のURLをブックマークすることで、今のビルドを保存できます。<br/>
-            URLをコピーして共有すれば、他の人にビルドを紹介できます。
-          </p>
-          <details>
-            <summary>折りたたみを展開する</summary>
-            <p className="m-4 w-80 break-words">
-              <a data-testid="urlText" className="text-cyan-300" href={shareURL}>{shareURL}</a>
-            </p>
-          </details>
+          <div className='m-4'>
+            <label>
+              <p>
+                以下の URL をブックマークすることで、今のビルドを保存できます。<br/>
+                URL をコピーして共有すれば、他の人にビルドを紹介できます。
+              </p>
+              <div className='m-4'>
+                <ul className='list-disc'>
+                  <li>
+                    <input
+                      data-testid="urlTextInput"
+                      className={textInputClass}
+                      type="text"
+                      defaultValue={shareURL}
+                      readOnly
+                      onFocus={e => e.target.select()}
+                      />
+                    （<a data-testid="urlTextLink" className="text-cyan-300" href={shareURL}>共有用 URL</a>）
+                  </li>
+                </ul>
+              </div>
+            </label>
+          </div>
         </section>
       </div>
 

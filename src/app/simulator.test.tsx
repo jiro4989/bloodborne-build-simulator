@@ -86,13 +86,18 @@ describe('正常系: クエリストリングが設定されている場合は',
             want: '98',
         },
         {
-            desc: 'URL がセットされている',
-            id: 'urlText',
-            want: 'undefined?bld=sushi&org=1&vit=2&end=3&str=4&skl=3&blt=1&arc=2',
+            desc: '固定文字列がセットされている',
+            id: 'urlTextLink',
+            want: '共有用 URL',
         },
     ]
     test.each(paramTests)(`$desc`, ({ id, want }) => {
         const got = container.querySelector<HTMLElement>(`[data-testid="${id}"]`)
         expect(got?.textContent).toBe(want)
+    })
+
+    test('共有用 text input には URL が defaultValue として設定される', () => {
+        const got = container.querySelector<HTMLInputElement>('[data-testid="urlTextInput"]')
+        expect(got?.defaultValue).toBe('undefined?bld=sushi&org=1&vit=2&end=3&str=4&skl=3&blt=1&arc=2')
     })
 })
