@@ -316,65 +316,26 @@ export default function Simulator() {
                 </td>
               </tr>
 
-              <tr>
-                <th>体力</th>
-                <td data-testid="vitalityText">
-                  {selectedOrigin.vitality + vitality}
-                </td>
-                <td>
-                  <ChangeParameterInputs currentValue={vitality} max={maxVitality} setValue={setVitality} />
-                </td>
-              </tr>
-
-              <tr>
-                <th>持久力</th>
-                <td data-testid="enduranceText">
-                  {selectedOrigin.endurance + endurance}
-                </td>
-                <td>
-                  <ChangeParameterInputs currentValue={endurance} max={maxEndurance} setValue={setEndurance} />
-                </td>
-              </tr>
-
-              <tr>
-                <th>筋力</th>
-                <td data-testid="strengthText">
-                  {selectedOrigin.strength + strength}
-                </td>
-                <td>
-                  <ChangeParameterInputs currentValue={strength} max={maxStrength} setValue={setStrength} />
-                </td>
-              </tr>
-
-              <tr>
-                <th>技術</th>
-                <td data-testid="skillText">
-                  {selectedOrigin.skill + skill}
-                </td>
-                <td>
-                  <ChangeParameterInputs currentValue={skill} max={maxSkill} setValue={setSkill} />
-                </td>
-              </tr>
-
-              <tr>
-                <th>血質</th>
-                <td data-testid="bloodtingeText">
-                  {selectedOrigin.bloodtinge + bloodtinge}
-                </td>
-                <td>
-                  <ChangeParameterInputs currentValue={bloodtinge} max={maxBloodtinge} setValue={setBloodtinge} />
-                </td>
-              </tr>
-
-              <tr>
-                <th>神秘</th>
-                <td data-testid="arcaneText">
-                  {selectedOrigin.arcane + arcane}
-                </td>
-                <td>
-                  <ChangeParameterInputs currentValue={arcane} max={maxArcane} setValue={setArcane} />
-                </td>
-              </tr>
+              {
+                [
+                  {desc: '体力', id: 'vitalityText', selected: selectedOrigin.vitality, currentValue: vitality, max: maxVitality, setValue: setVitality},
+                  {desc: '持久力', id: 'enduranceText', selected: selectedOrigin.endurance, currentValue: endurance, max: maxEndurance, setValue: setEndurance},
+                  {desc: '筋力', id: 'strengthText', selected: selectedOrigin.strength, currentValue: strength, max: maxStrength, setValue: setStrength},
+                  {desc: '技術', id: 'skillText', selected: selectedOrigin.skill, currentValue: skill, max: maxSkill, setValue: setSkill},
+                  {desc: '血質', id: 'bloodtingeText', selected: selectedOrigin.bloodtinge, currentValue: bloodtinge, max: maxBloodtinge, setValue: setBloodtinge},
+                  {desc: '神秘', id: 'arcaneText', selected: selectedOrigin.arcane, currentValue: arcane, max: maxArcane, setValue: setArcane},
+                ].map((v) => (
+                  <tr key={v.id}>
+                    <th>{v.desc}</th>
+                    <td data-testid={v.id}>
+                      {v.selected + v.currentValue}
+                    </td>
+                    <td>
+                      <ChangeParameterInputs currentValue={v.currentValue} max={v.max} setValue={v.setValue} />
+                    </td>
+                  </tr>
+                ))
+              }
             </tbody>
           </table>
         </section>
