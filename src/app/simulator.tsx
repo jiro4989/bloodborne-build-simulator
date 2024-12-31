@@ -222,6 +222,18 @@ const Slider = ({value, max, setValue}: {value: number, max: number, setValue: D
   )
 }
 
+const ChangeParameterInputs = ({currentValue, max, setValue}: {currentValue: number, max: number, setValue: Dispatch<SetStateAction<number>>}) => {
+  return (
+    <>
+      <IncreaseAndDecreaseButton currentValue={currentValue} value={-10} max={max} text='-10' setValue={setValue} />
+      <IncreaseAndDecreaseButton currentValue={currentValue} value={-1} max={max} text='-1' setValue={setValue} />
+      <Slider value={currentValue} max={max} setValue={setValue}/>
+      <IncreaseAndDecreaseButton currentValue={currentValue} value={+1} max={max} text='+1' setValue={setValue} />
+      <IncreaseAndDecreaseButton currentValue={currentValue} value={+10} max={max} text='+10' setValue={setValue} />
+    </>
+  )
+}
+
 export default function Simulator() {
   const searchParams = useSearchParams()
   const defaultBuild = searchParams.get("bld") || ""
@@ -310,11 +322,7 @@ export default function Simulator() {
                   {selectedOrigin.vitality + vitality}
                 </td>
                 <td>
-                  <IncreaseAndDecreaseButton currentValue={vitality} value={-10} max={maxVitality} text='-10' setValue={setVitality} />
-                  <IncreaseAndDecreaseButton currentValue={vitality} value={-1} max={maxVitality} text='-1' setValue={setVitality} />
-                  <Slider value={vitality} max={maxVitality} setValue={setVitality}/>
-                  <IncreaseAndDecreaseButton currentValue={vitality} value={+1} max={maxVitality} text='+1' setValue={setVitality} />
-                  <IncreaseAndDecreaseButton currentValue={vitality} value={+10} max={maxVitality} text='+10' setValue={setVitality} />
+                  <ChangeParameterInputs currentValue={vitality} max={maxVitality} setValue={setVitality} />
                 </td>
               </tr>
 
@@ -324,11 +332,7 @@ export default function Simulator() {
                   {selectedOrigin.endurance + endurance}
                 </td>
                 <td>
-                  <IncreaseAndDecreaseButton currentValue={endurance} value={-10} max={maxEndurance} text='-10' setValue={setEndurance} />
-                  <IncreaseAndDecreaseButton currentValue={endurance} value={-1} max={maxEndurance} text='-1' setValue={setEndurance} />
-                  <Slider value={endurance} max={maxEndurance} setValue={setEndurance}/>
-                  <IncreaseAndDecreaseButton currentValue={endurance} value={+1} max={maxEndurance} text='+1' setValue={setEndurance} />
-                  <IncreaseAndDecreaseButton currentValue={endurance} value={+10} max={maxEndurance} text='+10' setValue={setEndurance} />
+                  <ChangeParameterInputs currentValue={endurance} max={maxEndurance} setValue={setEndurance} />
                 </td>
               </tr>
 
@@ -338,11 +342,7 @@ export default function Simulator() {
                   {selectedOrigin.strength + strength}
                 </td>
                 <td>
-                  <IncreaseAndDecreaseButton currentValue={strength} value={-10} max={maxStrength} text='-10' setValue={setStrength} />
-                  <IncreaseAndDecreaseButton currentValue={strength} value={-1} max={maxStrength} text='-1' setValue={setStrength} />
-                  <Slider value={strength} max={maxStrength} setValue={setStrength}/>
-                  <IncreaseAndDecreaseButton currentValue={strength} value={+1} max={maxStrength} text='+1' setValue={setStrength} />
-                  <IncreaseAndDecreaseButton currentValue={strength} value={+10} max={maxStrength} text='+10' setValue={setStrength} />
+                  <ChangeParameterInputs currentValue={strength} max={maxStrength} setValue={setStrength} />
                 </td>
               </tr>
 
@@ -352,11 +352,7 @@ export default function Simulator() {
                   {selectedOrigin.skill + skill}
                 </td>
                 <td>
-                  <IncreaseAndDecreaseButton currentValue={skill} value={-10} max={maxSkill} text='-10' setValue={setSkill} />
-                  <IncreaseAndDecreaseButton currentValue={skill} value={-1} max={maxSkill} text='-1' setValue={setSkill} />
-                  <Slider value={skill} max={maxSkill} setValue={setSkill}/>
-                  <IncreaseAndDecreaseButton currentValue={skill} value={+1} max={maxSkill} text='+1' setValue={setSkill} />
-                  <IncreaseAndDecreaseButton currentValue={skill} value={+10} max={maxSkill} text='+10' setValue={setSkill} />
+                  <ChangeParameterInputs currentValue={skill} max={maxSkill} setValue={setSkill} />
                 </td>
               </tr>
 
@@ -366,11 +362,7 @@ export default function Simulator() {
                   {selectedOrigin.bloodtinge + bloodtinge}
                 </td>
                 <td>
-                  <IncreaseAndDecreaseButton currentValue={bloodtinge} value={-10} max={maxBloodtinge} text='-10' setValue={setBloodtinge} />
-                  <IncreaseAndDecreaseButton currentValue={bloodtinge} value={-1} max={maxBloodtinge} text='-1' setValue={setBloodtinge} />
-                  <Slider value={bloodtinge} max={maxBloodtinge} setValue={setBloodtinge}/>
-                  <IncreaseAndDecreaseButton currentValue={bloodtinge} value={+1} max={maxBloodtinge} text='+1' setValue={setBloodtinge} />
-                  <IncreaseAndDecreaseButton currentValue={bloodtinge} value={+10} max={maxBloodtinge} text='+10' setValue={setBloodtinge} />
+                  <ChangeParameterInputs currentValue={bloodtinge} max={maxBloodtinge} setValue={setBloodtinge} />
                 </td>
               </tr>
 
@@ -380,11 +372,7 @@ export default function Simulator() {
                   {selectedOrigin.arcane + arcane}
                 </td>
                 <td>
-                  <IncreaseAndDecreaseButton currentValue={arcane} value={-10} max={maxArcane} text='-10' setValue={setArcane} />
-                  <IncreaseAndDecreaseButton currentValue={arcane} value={-1} max={maxArcane} text='-1' setValue={setArcane} />
-                  <Slider value={arcane} max={maxArcane} setValue={setArcane}/>
-                  <IncreaseAndDecreaseButton currentValue={arcane} value={+1} max={maxArcane} text='+1' setValue={setArcane} />
-                  <IncreaseAndDecreaseButton currentValue={arcane} value={+10} max={maxArcane} text='+10' setValue={setArcane} />
+                  <ChangeParameterInputs currentValue={arcane} max={maxArcane} setValue={setArcane} />
                 </td>
               </tr>
             </tbody>
