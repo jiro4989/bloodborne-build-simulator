@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { HPs, Staminas } from './data'
 import { useSearchParams } from "next/navigation";
 
@@ -202,7 +202,13 @@ function setValueWithValidation(value: number, setValue: any, min: number, max: 
   setValue(value)
 }
 
-const Slider = ({value, max, setValue}: {value: number, max: number, setValue: any}) => {
+const IncreaseAndDecreaseButton = ({currentValue, value, max, text, setValue}: {currentValue: number, value: number,  max: number, text: string, setValue: Dispatch<SetStateAction<number>>}) => {
+  return (
+    <button type="button" className={buttonClass} onClick={e => setValueWithValidation(currentValue + value, setValue, 0, max)}>{text}</button>
+  )
+}
+
+const Slider = ({value, max, setValue}: {value: number, max: number, setValue: Dispatch<SetStateAction<number>>}) => {
   return (
     <input
       className={sliderClass}
@@ -252,42 +258,6 @@ export default function Simulator() {
     setSkill(0)
     setBloodtinge(0)
     setArcane(0)
-  }
-
-  const VitalityButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(vitality + value, setVitality, 0, maxVitality)}>{text}</button>
-    )
-  }
-
-  const EnduranceButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(endurance + value, setEndurance, 0, maxEndurance)}>{text}</button>
-    )
-  }
-
-  const StrengthButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(strength + value, setStrength, 0, maxStrength)}>{text}</button>
-    )
-  }
-
-  const SkillButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(skill + value, setSkill, 0, maxSkill)}>{text}</button>
-    )
-  }
-
-  const BloodtingeButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(bloodtinge + value, setBloodtinge, 0, maxBloodtinge)}>{text}</button>
-    )
-  }
-
-  const ArcaneButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(arcane + value, setArcane, 0, maxArcane)}>{text}</button>
-    )
   }
 
   function generateURL(build: string, origin: number, vitality: number, endurance: number, strength: number, skill: number, bloodtinge: number, arcane: number): string {
@@ -340,11 +310,11 @@ export default function Simulator() {
                   {selectedOrigin.vitality + vitality}
                 </td>
                 <td>
-                  <VitalityButton value={-10} text="-10"/>
-                  <VitalityButton value={-1} text="-1"/>
+                  <IncreaseAndDecreaseButton currentValue={vitality} value={-10} max={maxVitality} text='-10' setValue={setVitality} />
+                  <IncreaseAndDecreaseButton currentValue={vitality} value={-1} max={maxVitality} text='-1' setValue={setVitality} />
                   <Slider value={vitality} max={maxVitality} setValue={setVitality}/>
-                  <VitalityButton value={+1} text="+1"/>
-                  <VitalityButton value={+10} text="+10"/>
+                  <IncreaseAndDecreaseButton currentValue={vitality} value={+1} max={maxVitality} text='+1' setValue={setVitality} />
+                  <IncreaseAndDecreaseButton currentValue={vitality} value={+10} max={maxVitality} text='+10' setValue={setVitality} />
                 </td>
               </tr>
 
@@ -354,11 +324,11 @@ export default function Simulator() {
                   {selectedOrigin.endurance + endurance}
                 </td>
                 <td>
-                  <EnduranceButton value={-10} text="-10"/>
-                  <EnduranceButton value={-1} text="-1"/>
+                  <IncreaseAndDecreaseButton currentValue={endurance} value={-10} max={maxEndurance} text='-10' setValue={setEndurance} />
+                  <IncreaseAndDecreaseButton currentValue={endurance} value={-1} max={maxEndurance} text='-1' setValue={setEndurance} />
                   <Slider value={endurance} max={maxEndurance} setValue={setEndurance}/>
-                  <EnduranceButton value={+1} text="+1"/>
-                  <EnduranceButton value={+10} text="+10"/>
+                  <IncreaseAndDecreaseButton currentValue={endurance} value={+1} max={maxEndurance} text='+1' setValue={setEndurance} />
+                  <IncreaseAndDecreaseButton currentValue={endurance} value={+10} max={maxEndurance} text='+10' setValue={setEndurance} />
                 </td>
               </tr>
 
@@ -368,11 +338,11 @@ export default function Simulator() {
                   {selectedOrigin.strength + strength}
                 </td>
                 <td>
-                  <StrengthButton value={-10} text="-10"/>
-                  <StrengthButton value={-1} text="-1"/>
+                  <IncreaseAndDecreaseButton currentValue={strength} value={-10} max={maxStrength} text='-10' setValue={setStrength} />
+                  <IncreaseAndDecreaseButton currentValue={strength} value={-1} max={maxStrength} text='-1' setValue={setStrength} />
                   <Slider value={strength} max={maxStrength} setValue={setStrength}/>
-                  <StrengthButton value={+1} text="+1"/>
-                  <StrengthButton value={+10} text="+10"/>
+                  <IncreaseAndDecreaseButton currentValue={strength} value={+1} max={maxStrength} text='+1' setValue={setStrength} />
+                  <IncreaseAndDecreaseButton currentValue={strength} value={+10} max={maxStrength} text='+10' setValue={setStrength} />
                 </td>
               </tr>
 
@@ -382,11 +352,11 @@ export default function Simulator() {
                   {selectedOrigin.skill + skill}
                 </td>
                 <td>
-                  <SkillButton value={-10} text="-10"/>
-                  <SkillButton value={-1} text="-1"/>
+                  <IncreaseAndDecreaseButton currentValue={skill} value={-10} max={maxSkill} text='-10' setValue={setSkill} />
+                  <IncreaseAndDecreaseButton currentValue={skill} value={-1} max={maxSkill} text='-1' setValue={setSkill} />
                   <Slider value={skill} max={maxSkill} setValue={setSkill}/>
-                  <SkillButton value={+1} text="+1"/>
-                  <SkillButton value={+10} text="+10"/>
+                  <IncreaseAndDecreaseButton currentValue={skill} value={+1} max={maxSkill} text='+1' setValue={setSkill} />
+                  <IncreaseAndDecreaseButton currentValue={skill} value={+10} max={maxSkill} text='+10' setValue={setSkill} />
                 </td>
               </tr>
 
@@ -396,11 +366,11 @@ export default function Simulator() {
                   {selectedOrigin.bloodtinge + bloodtinge}
                 </td>
                 <td>
-                  <BloodtingeButton value={-10} text="-10"/>
-                  <BloodtingeButton value={-1} text="-1"/>
+                  <IncreaseAndDecreaseButton currentValue={bloodtinge} value={-10} max={maxBloodtinge} text='-10' setValue={setBloodtinge} />
+                  <IncreaseAndDecreaseButton currentValue={bloodtinge} value={-1} max={maxBloodtinge} text='-1' setValue={setBloodtinge} />
                   <Slider value={bloodtinge} max={maxBloodtinge} setValue={setBloodtinge}/>
-                  <BloodtingeButton value={+1} text="+1"/>
-                  <BloodtingeButton value={+10} text="+10"/>
+                  <IncreaseAndDecreaseButton currentValue={bloodtinge} value={+1} max={maxBloodtinge} text='+1' setValue={setBloodtinge} />
+                  <IncreaseAndDecreaseButton currentValue={bloodtinge} value={+10} max={maxBloodtinge} text='+10' setValue={setBloodtinge} />
                 </td>
               </tr>
 
@@ -410,11 +380,11 @@ export default function Simulator() {
                   {selectedOrigin.arcane + arcane}
                 </td>
                 <td>
-                  <ArcaneButton value={-10} text="-10"/>
-                  <ArcaneButton value={-1} text="-1"/>
+                  <IncreaseAndDecreaseButton currentValue={arcane} value={-10} max={maxArcane} text='-10' setValue={setArcane} />
+                  <IncreaseAndDecreaseButton currentValue={arcane} value={-1} max={maxArcane} text='-1' setValue={setArcane} />
                   <Slider value={arcane} max={maxArcane} setValue={setArcane}/>
-                  <ArcaneButton value={+1} text="+1"/>
-                  <ArcaneButton value={+10} text="+10"/>
+                  <IncreaseAndDecreaseButton currentValue={arcane} value={+1} max={maxArcane} text='+1' setValue={setArcane} />
+                  <IncreaseAndDecreaseButton currentValue={arcane} value={+10} max={maxArcane} text='+10' setValue={setArcane} />
                 </td>
               </tr>
             </tbody>
