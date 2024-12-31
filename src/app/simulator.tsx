@@ -203,11 +203,13 @@ function setValueWithValidation(value: number, setValue: any, min: number, max: 
 }
 
 const IncreaseAndDecreaseButton = ({statusName, currentValue, additionalValue, value, max, text, setValue}: {statusName: string, currentValue: number, additionalValue: number, value: number,  max: number, text: string, setValue: Dispatch<SetStateAction<number>>}) => {
+  const num = Math.abs(value)
+  const op = 0 < value ? '加算' : '減算'
   return (
     <button
       type="button"
       className={buttonClass}
-      aria-label={`${statusName}の値を ${value} します。現在の値は ${currentValue} です`}
+      aria-label={`${statusName}の値を ${num} ${op}します。現在の値は ${currentValue} です`}
       onClick={e => setValueWithValidation(additionalValue + value, setValue, 0, max)}
       >{text}</button>
   )
