@@ -337,7 +337,13 @@ export default function Simulator() {
                       {v.baseValue + v.additionalValue}
                     </td>
                     <td>
-                      <ChangeParameterInputs statusName={v.desc} currentValue={v.baseValue + v.additionalValue} additionalValue={v.additionalValue} max={v.max} setValue={v.setValue} />
+                      <ChangeParameterInputs
+                        statusName={v.desc}
+                        currentValue={v.baseValue + v.additionalValue}
+                        additionalValue={v.additionalValue}
+                        max={v.max}
+                        setValue={v.setValue}
+                        />
                     </td>
                   </tr>
                 ))
