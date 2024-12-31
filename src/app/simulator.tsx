@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { HPs, Staminas } from './data'
 import { useSearchParams } from "next/navigation";
 
@@ -185,6 +185,63 @@ function setDocumentTitle(name: string) {
   }
 }
 
+const sliderClass = "w-28 md:w-40 lg:w-60 m-2"
+const buttonClass = "bg-white text-black p-0.5 md:p-1 m-0.5 md:m-1 rounded w-10 md:w-12"
+
+function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
+  if (value < min) {
+    setValue(min)
+    return
+  }
+
+  if (max < value) {
+    setValue(max)
+    return
+  }
+
+  setValue(value)
+}
+
+const IncreaseAndDecreaseButton = ({statusName, currentValue, additionalValue, value, max, text, setValue}: {statusName: string, currentValue: number, additionalValue: number, value: number,  max: number, text: string, setValue: Dispatch<SetStateAction<number>>}) => {
+  const num = Math.abs(value)
+  const op = 0 < value ? '加算' : '減算'
+  return (
+    <button
+      type="button"
+      className={buttonClass}
+      aria-label={`${statusName}の値を ${num} ${op}します。現在の値は ${currentValue} です`}
+      onClick={e => setValueWithValidation(additionalValue + value, setValue, 0, max)}
+      >{text}</button>
+  )
+}
+
+const Slider = ({statusName, currentValue, value, max, setValue}: {statusName: string, currentValue: number, value: number, max: number, setValue: Dispatch<SetStateAction<number>>}) => {
+  return (
+    <input
+      className={sliderClass}
+      type="range"
+      min="0"
+      max={max}
+      step="1"
+      value={value}
+      aria-label={`${statusName}の値をスライダーで増減します。現在の値は ${currentValue} です`}
+      onChange={e => setValue(parseInt(e.target.value))}
+      />
+  )
+}
+
+const ChangeParameterInputs = ({statusName, currentValue, additionalValue, max, setValue}: {statusName: string, currentValue: number, additionalValue: number, max: number, setValue: Dispatch<SetStateAction<number>>}) => {
+  return (
+    <>
+      <IncreaseAndDecreaseButton statusName={statusName} currentValue={currentValue} additionalValue={additionalValue} value={-10} max={max} text='-10' setValue={setValue} />
+      <IncreaseAndDecreaseButton statusName={statusName} currentValue={currentValue} additionalValue={additionalValue} value={-1} max={max} text='-1' setValue={setValue} />
+      <Slider statusName={statusName} currentValue={currentValue} value={additionalValue} max={max} setValue={setValue}/>
+      <IncreaseAndDecreaseButton statusName={statusName} currentValue={currentValue} additionalValue={additionalValue} value={+1} max={max} text='+1' setValue={setValue} />
+      <IncreaseAndDecreaseButton statusName={statusName} currentValue={currentValue} additionalValue={additionalValue} value={+10} max={max} text='+10' setValue={setValue} />
+    </>
+  )
+}
+
 export default function Simulator() {
   const searchParams = useSearchParams()
   const defaultBuild = searchParams.get("bld") || ""
@@ -223,58 +280,6 @@ export default function Simulator() {
     setArcane(0)
   }
 
-  function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
-    if (value < min) {
-      setValue(min)
-      return
-    }
-
-    if (max < value) {
-      setValue(max)
-      return
-    }
-
-    setValue(value)
-  }
-
-  const buttonClass = "bg-white text-black p-0.5 md:p-1 m-0.5 md:m-1 rounded w-10 md:w-12"
-
-  const VitalityButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(vitality + value, setVitality, 0, maxVitality)}>{text}</button>
-    )
-  }
-
-  const EnduranceButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(endurance + value, setEndurance, 0, maxEndurance)}>{text}</button>
-    )
-  }
-
-  const StrengthButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(strength + value, setStrength, 0, maxStrength)}>{text}</button>
-    )
-  }
-
-  const SkillButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(skill + value, setSkill, 0, maxSkill)}>{text}</button>
-    )
-  }
-
-  const BloodtingeButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(bloodtinge + value, setBloodtinge, 0, maxBloodtinge)}>{text}</button>
-    )
-  }
-
-  const ArcaneButton = ({value, text}: {value: number, text: string}) => {
-    return (
-      <button type="button" className={buttonClass} onClick={e => setValueWithValidation(arcane + value, setArcane, 0, maxArcane)}>{text}</button>
-    )
-  }
-
   function generateURL(build: string, origin: number, vitality: number, endurance: number, strength: number, skill: number, bloodtinge: number, arcane: number): string {
     const encodedBuild = encodeURIComponent(build)
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL
@@ -286,7 +291,6 @@ export default function Simulator() {
     setDocumentTitle(buildName)
   })
 
-  const sliderClass = "w-28 md:w-40 lg:w-60 m-2"
   const shareURL = generateURL(buildName, searchOriginIndex(selected), vitality, endurance, strength, skill, bloodtinge, arcane)
 
   return (
@@ -304,7 +308,7 @@ export default function Simulator() {
                 <th className="w-20">ビルド名</th>
                 <td className="w-8"></td>
                 <td>
-                  <input className="w-80 text-black" type="text" value={buildName} onChange={e => setBuildName(e.target.value)} />
+                  <input className="w-80 text-black" type="text" value={buildName} autoFocus placeholder='例：上質ビルド' aria-label='分かりやすいビルド名を入力します' onChange={e => setBuildName(e.target.value)} />
                 </td>
               </tr>
 
@@ -312,7 +316,7 @@ export default function Simulator() {
                 <th>過去</th>
                 <td></td>
                 <td>
-                  <select data-testid="originText" className="text-black" value={selected} onChange={e => resetStatus(e.target.value)}>
+                  <select data-testid="originText" className="text-black" value={selected} aria-label='過去を選択します' onChange={e => resetStatus(e.target.value)}>
                     {
                       numberToOrigin.map((v,i) => <option key={v.key} value={v.key}>{v.name}</option>)
                     }
@@ -320,137 +324,32 @@ export default function Simulator() {
                 </td>
               </tr>
 
-              <tr>
-                <th>体力</th>
-                <td data-testid="vitalityText">
-                  {selectedOrigin.vitality + vitality}
-                </td>
-                <td>
-                  <VitalityButton value={-10} text="-10"/>
-                  <VitalityButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxVitality}
-                    step="1"
-                    value={vitality}
-                    onChange={e => setVitality(parseInt(e.target.value))}
-                    />
-                  <VitalityButton value={+1} text="+1"/>
-                  <VitalityButton value={+10} text="+10"/>
-                </td>
-              </tr>
-
-              <tr>
-                <th>持久力</th>
-                <td data-testid="enduranceText">
-                  {selectedOrigin.endurance + endurance}
-                </td>
-                <td>
-                  <EnduranceButton value={-10} text="-10"/>
-                  <EnduranceButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxEndurance}
-                    step="1"
-                    value={endurance}
-                    onChange={e => setEndurance(parseInt(e.target.value))}
-                    />
-                  <EnduranceButton value={+1} text="+1"/>
-                  <EnduranceButton value={+10} text="+10"/>
-                </td>
-              </tr>
-
-              <tr>
-                <th>筋力</th>
-                <td data-testid="strengthText">
-                  {selectedOrigin.strength + strength}
-                </td>
-                <td>
-                  <StrengthButton value={-10} text="-10"/>
-                  <StrengthButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxStrength}
-                    step="1"
-                    value={strength}
-                    onChange={e => setStrength(parseInt(e.target.value))}
-                    />
-                  <StrengthButton value={+1} text="+1"/>
-                  <StrengthButton value={+10} text="+10"/>
-                </td>
-              </tr>
-
-              <tr>
-                <th>技術</th>
-                <td data-testid="skillText">
-                  {selectedOrigin.skill + skill}
-                </td>
-                <td>
-                  <SkillButton value={-10} text="-10"/>
-                  <SkillButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxSkill}
-                    step="1"
-                    value={skill}
-                    onChange={e => setSkill(parseInt(e.target.value))}
-                    />
-                  <SkillButton value={+1} text="+1"/>
-                  <SkillButton value={+10} text="+10"/>
-                </td>
-              </tr>
-
-              <tr>
-                <th>血質</th>
-                <td data-testid="bloodtingeText">
-                  {selectedOrigin.bloodtinge + bloodtinge}
-                </td>
-                <td>
-                  <BloodtingeButton value={-10} text="-10"/>
-                  <BloodtingeButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxBloodtinge}
-                    step="1"
-                    value={bloodtinge}
-                    onChange={e => setBloodtinge(parseInt(e.target.value))}
-                    />
-                  <BloodtingeButton value={+1} text="+1"/>
-                  <BloodtingeButton value={+10} text="+10"/>
-                </td>
-              </tr>
-
-              <tr>
-                <th>神秘</th>
-                <td data-testid="arcaneText">
-                  {selectedOrigin.arcane + arcane}
-                </td>
-                <td>
-                  <ArcaneButton value={-10} text="-10"/>
-                  <ArcaneButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxArcane}
-                    step="1"
-                    value={arcane}
-                    onChange={e => setArcane(parseInt(e.target.value))}
-                    />
-                  <ArcaneButton value={+1} text="+1"/>
-                  <ArcaneButton value={+10} text="+10"/>
-                </td>
-              </tr>
+              {
+                [
+                  {desc: '体力', id: 'vitalityText', baseValue: selectedOrigin.vitality, additionalValue: vitality, max: maxVitality, setValue: setVitality},
+                  {desc: '持久力', id: 'enduranceText', baseValue: selectedOrigin.endurance, additionalValue: endurance, max: maxEndurance, setValue: setEndurance},
+                  {desc: '筋力', id: 'strengthText', baseValue: selectedOrigin.strength, additionalValue: strength, max: maxStrength, setValue: setStrength},
+                  {desc: '技術', id: 'skillText', baseValue: selectedOrigin.skill, additionalValue: skill, max: maxSkill, setValue: setSkill},
+                  {desc: '血質', id: 'bloodtingeText', baseValue: selectedOrigin.bloodtinge, additionalValue: bloodtinge, max: maxBloodtinge, setValue: setBloodtinge},
+                  {desc: '神秘', id: 'arcaneText', baseValue: selectedOrigin.arcane, additionalValue: arcane, max: maxArcane, setValue: setArcane},
+                ].map((v) => (
+                  <tr key={v.id}>
+                    <th>{v.desc}</th>
+                    <td data-testid={v.id}>
+                      {v.baseValue + v.additionalValue}
+                    </td>
+                    <td>
+                      <ChangeParameterInputs
+                        statusName={v.desc}
+                        currentValue={v.baseValue + v.additionalValue}
+                        additionalValue={v.additionalValue}
+                        max={v.max}
+                        setValue={v.setValue}
+                        />
+                    </td>
+                  </tr>
+                ))
+              }
             </tbody>
           </table>
         </section>
