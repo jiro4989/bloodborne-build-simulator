@@ -304,6 +304,7 @@ export default function Simulator() {
         <section className="m-2 border-b-2 border-dotted">
           <h2 className="text-xl">入力</h2>
           <div className='m-4'>
+            <p className='m-1'>以下の入力値を変更すると、計算結果と共有に自動反映されます。</p>
             <table>
               <tbody>
                 <tr>
