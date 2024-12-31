@@ -202,13 +202,18 @@ function setValueWithValidation(value: number, setValue: any, min: number, max: 
   setValue(value)
 }
 
-const IncreaseAndDecreaseButton = ({currentValue, value, max, text, setValue}: {currentValue: number, value: number,  max: number, text: string, setValue: Dispatch<SetStateAction<number>>}) => {
+const IncreaseAndDecreaseButton = ({statusName, currentValue, additionalValue, value, max, text, setValue}: {statusName: string, currentValue: number, additionalValue: number, value: number,  max: number, text: string, setValue: Dispatch<SetStateAction<number>>}) => {
   return (
-    <button type="button" className={buttonClass} onClick={e => setValueWithValidation(currentValue + value, setValue, 0, max)}>{text}</button>
+    <button
+      type="button"
+      className={buttonClass}
+      aria-label={`${statusName}の値を ${value} します。現在の値は ${currentValue} です`}
+      onClick={e => setValueWithValidation(additionalValue + value, setValue, 0, max)}
+      >{text}</button>
   )
 }
 
-const Slider = ({value, max, setValue}: {value: number, max: number, setValue: Dispatch<SetStateAction<number>>}) => {
+const Slider = ({statusName, currentValue, value, max, setValue}: {statusName: string, currentValue: number, value: number, max: number, setValue: Dispatch<SetStateAction<number>>}) => {
   return (
     <input
       className={sliderClass}
@@ -217,19 +222,20 @@ const Slider = ({value, max, setValue}: {value: number, max: number, setValue: D
       max={max}
       step="1"
       value={value}
+      aria-label={`${statusName}の値をスライダーで増減します。現在の値は ${currentValue} です`}
       onChange={e => setValue(parseInt(e.target.value))}
       />
   )
 }
 
-const ChangeParameterInputs = ({currentValue, max, setValue}: {currentValue: number, max: number, setValue: Dispatch<SetStateAction<number>>}) => {
+const ChangeParameterInputs = ({statusName, currentValue, additionalValue, max, setValue}: {statusName: string, currentValue: number, additionalValue: number, max: number, setValue: Dispatch<SetStateAction<number>>}) => {
   return (
     <>
-      <IncreaseAndDecreaseButton currentValue={currentValue} value={-10} max={max} text='-10' setValue={setValue} />
-      <IncreaseAndDecreaseButton currentValue={currentValue} value={-1} max={max} text='-1' setValue={setValue} />
-      <Slider value={currentValue} max={max} setValue={setValue}/>
-      <IncreaseAndDecreaseButton currentValue={currentValue} value={+1} max={max} text='+1' setValue={setValue} />
-      <IncreaseAndDecreaseButton currentValue={currentValue} value={+10} max={max} text='+10' setValue={setValue} />
+      <IncreaseAndDecreaseButton statusName={statusName} currentValue={currentValue} additionalValue={additionalValue} value={-10} max={max} text='-10' setValue={setValue} />
+      <IncreaseAndDecreaseButton statusName={statusName} currentValue={currentValue} additionalValue={additionalValue} value={-1} max={max} text='-1' setValue={setValue} />
+      <Slider statusName={statusName} currentValue={currentValue} value={additionalValue} max={max} setValue={setValue}/>
+      <IncreaseAndDecreaseButton statusName={statusName} currentValue={currentValue} additionalValue={additionalValue} value={+1} max={max} text='+1' setValue={setValue} />
+      <IncreaseAndDecreaseButton statusName={statusName} currentValue={currentValue} additionalValue={additionalValue} value={+10} max={max} text='+10' setValue={setValue} />
     </>
   )
 }
@@ -318,20 +324,20 @@ export default function Simulator() {
 
               {
                 [
-                  {desc: '体力', id: 'vitalityText', selected: selectedOrigin.vitality, currentValue: vitality, max: maxVitality, setValue: setVitality},
-                  {desc: '持久力', id: 'enduranceText', selected: selectedOrigin.endurance, currentValue: endurance, max: maxEndurance, setValue: setEndurance},
-                  {desc: '筋力', id: 'strengthText', selected: selectedOrigin.strength, currentValue: strength, max: maxStrength, setValue: setStrength},
-                  {desc: '技術', id: 'skillText', selected: selectedOrigin.skill, currentValue: skill, max: maxSkill, setValue: setSkill},
-                  {desc: '血質', id: 'bloodtingeText', selected: selectedOrigin.bloodtinge, currentValue: bloodtinge, max: maxBloodtinge, setValue: setBloodtinge},
-                  {desc: '神秘', id: 'arcaneText', selected: selectedOrigin.arcane, currentValue: arcane, max: maxArcane, setValue: setArcane},
+                  {desc: '体力', id: 'vitalityText', baseValue: selectedOrigin.vitality, additionalValue: vitality, max: maxVitality, setValue: setVitality},
+                  {desc: '持久力', id: 'enduranceText', baseValue: selectedOrigin.endurance, additionalValue: endurance, max: maxEndurance, setValue: setEndurance},
+                  {desc: '筋力', id: 'strengthText', baseValue: selectedOrigin.strength, additionalValue: strength, max: maxStrength, setValue: setStrength},
+                  {desc: '技術', id: 'skillText', baseValue: selectedOrigin.skill, additionalValue: skill, max: maxSkill, setValue: setSkill},
+                  {desc: '血質', id: 'bloodtingeText', baseValue: selectedOrigin.bloodtinge, additionalValue: bloodtinge, max: maxBloodtinge, setValue: setBloodtinge},
+                  {desc: '神秘', id: 'arcaneText', baseValue: selectedOrigin.arcane, additionalValue: arcane, max: maxArcane, setValue: setArcane},
                 ].map((v) => (
                   <tr key={v.id}>
                     <th>{v.desc}</th>
                     <td data-testid={v.id}>
-                      {v.selected + v.currentValue}
+                      {v.baseValue + v.additionalValue}
                     </td>
                     <td>
-                      <ChangeParameterInputs currentValue={v.currentValue} max={v.max} setValue={v.setValue} />
+                      <ChangeParameterInputs statusName={v.desc} currentValue={v.baseValue + v.additionalValue} additionalValue={v.additionalValue} max={v.max} setValue={v.setValue} />
                     </td>
                   </tr>
                 ))
