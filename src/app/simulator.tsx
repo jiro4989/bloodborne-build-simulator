@@ -185,6 +185,37 @@ function setDocumentTitle(name: string) {
   }
 }
 
+const sliderClass = "w-28 md:w-40 lg:w-60 m-2"
+const buttonClass = "bg-white text-black p-0.5 md:p-1 m-0.5 md:m-1 rounded w-10 md:w-12"
+
+function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
+  if (value < min) {
+    setValue(min)
+    return
+  }
+
+  if (max < value) {
+    setValue(max)
+    return
+  }
+
+  setValue(value)
+}
+
+const Slider = ({value, max, setValue}: {value: number, max: number, setValue: any}) => {
+  return (
+    <input
+      className={sliderClass}
+      type="range"
+      min="0"
+      max={max}
+      step="1"
+      value={value}
+      onChange={e => setValue(parseInt(e.target.value))}
+      />
+  )
+}
+
 export default function Simulator() {
   const searchParams = useSearchParams()
   const defaultBuild = searchParams.get("bld") || ""
@@ -222,22 +253,6 @@ export default function Simulator() {
     setBloodtinge(0)
     setArcane(0)
   }
-
-  function setValueWithValidation(value: number, setValue: any, min: number, max: number) {
-    if (value < min) {
-      setValue(min)
-      return
-    }
-
-    if (max < value) {
-      setValue(max)
-      return
-    }
-
-    setValue(value)
-  }
-
-  const buttonClass = "bg-white text-black p-0.5 md:p-1 m-0.5 md:m-1 rounded w-10 md:w-12"
 
   const VitalityButton = ({value, text}: {value: number, text: string}) => {
     return (
@@ -286,7 +301,6 @@ export default function Simulator() {
     setDocumentTitle(buildName)
   })
 
-  const sliderClass = "w-28 md:w-40 lg:w-60 m-2"
   const shareURL = generateURL(buildName, searchOriginIndex(selected), vitality, endurance, strength, skill, bloodtinge, arcane)
 
   return (
@@ -328,16 +342,7 @@ export default function Simulator() {
                 <td>
                   <VitalityButton value={-10} text="-10"/>
                   <VitalityButton value={-1} text="-1"/>
-                  {/* 何故かスライダーを関数化して共通化すると、ドラッグで固まるようになるので仕方なくベタ書き */}
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxVitality}
-                    step="1"
-                    value={vitality}
-                    onChange={e => setVitality(parseInt(e.target.value))}
-                    />
+                  <Slider value={vitality} max={maxVitality} setValue={setVitality}/>
                   <VitalityButton value={+1} text="+1"/>
                   <VitalityButton value={+10} text="+10"/>
                 </td>
@@ -351,15 +356,7 @@ export default function Simulator() {
                 <td>
                   <EnduranceButton value={-10} text="-10"/>
                   <EnduranceButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxEndurance}
-                    step="1"
-                    value={endurance}
-                    onChange={e => setEndurance(parseInt(e.target.value))}
-                    />
+                  <Slider value={endurance} max={maxEndurance} setValue={setEndurance}/>
                   <EnduranceButton value={+1} text="+1"/>
                   <EnduranceButton value={+10} text="+10"/>
                 </td>
@@ -373,15 +370,7 @@ export default function Simulator() {
                 <td>
                   <StrengthButton value={-10} text="-10"/>
                   <StrengthButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxStrength}
-                    step="1"
-                    value={strength}
-                    onChange={e => setStrength(parseInt(e.target.value))}
-                    />
+                  <Slider value={strength} max={maxStrength} setValue={setStrength}/>
                   <StrengthButton value={+1} text="+1"/>
                   <StrengthButton value={+10} text="+10"/>
                 </td>
@@ -395,15 +384,7 @@ export default function Simulator() {
                 <td>
                   <SkillButton value={-10} text="-10"/>
                   <SkillButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxSkill}
-                    step="1"
-                    value={skill}
-                    onChange={e => setSkill(parseInt(e.target.value))}
-                    />
+                  <Slider value={skill} max={maxSkill} setValue={setSkill}/>
                   <SkillButton value={+1} text="+1"/>
                   <SkillButton value={+10} text="+10"/>
                 </td>
@@ -417,15 +398,7 @@ export default function Simulator() {
                 <td>
                   <BloodtingeButton value={-10} text="-10"/>
                   <BloodtingeButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxBloodtinge}
-                    step="1"
-                    value={bloodtinge}
-                    onChange={e => setBloodtinge(parseInt(e.target.value))}
-                    />
+                  <Slider value={bloodtinge} max={maxBloodtinge} setValue={setBloodtinge}/>
                   <BloodtingeButton value={+1} text="+1"/>
                   <BloodtingeButton value={+10} text="+10"/>
                 </td>
@@ -439,15 +412,7 @@ export default function Simulator() {
                 <td>
                   <ArcaneButton value={-10} text="-10"/>
                   <ArcaneButton value={-1} text="-1"/>
-                  <input
-                    className={sliderClass}
-                    type="range"
-                    min="0"
-                    max={maxArcane}
-                    step="1"
-                    value={arcane}
-                    onChange={e => setArcane(parseInt(e.target.value))}
-                    />
+                  <Slider value={arcane} max={maxArcane} setValue={setArcane}/>
                   <ArcaneButton value={+1} text="+1"/>
                   <ArcaneButton value={+10} text="+10"/>
                 </td>
