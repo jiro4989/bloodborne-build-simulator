@@ -328,6 +328,7 @@ export default function Simulator() {
                 <td>
                   <VitalityButton value={-10} text="-10"/>
                   <VitalityButton value={-1} text="-1"/>
+                  {/* 何故かスライダーを関数化して共通化すると、ドラッグで固まるようになるので仕方なくベタ書き */}
                   <input
                     className={sliderClass}
                     type="range"
