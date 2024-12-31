@@ -304,7 +304,7 @@ export default function Simulator() {
                 <th className="w-20">ビルド名</th>
                 <td className="w-8"></td>
                 <td>
-                  <input className="w-80 text-black" type="text" value={buildName} autoFocus onChange={e => setBuildName(e.target.value)} />
+                  <input className="w-80 text-black" type="text" value={buildName} autoFocus placeholder='例：上質ビルド' onChange={e => setBuildName(e.target.value)} />
                 </td>
               </tr>
 
