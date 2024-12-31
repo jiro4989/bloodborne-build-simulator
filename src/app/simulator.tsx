@@ -304,7 +304,7 @@ export default function Simulator() {
                 <th className="w-20">ビルド名</th>
                 <td className="w-8"></td>
                 <td>
-                  <input className="w-80 text-black" type="text" value={buildName} autoFocus placeholder='例：上質ビルド' onChange={e => setBuildName(e.target.value)} />
+                  <input className="w-80 text-black" type="text" value={buildName} autoFocus placeholder='例：上質ビルド' aria-label='分かりやすいビルド名を入力します' onChange={e => setBuildName(e.target.value)} />
                 </td>
               </tr>
 
@@ -312,7 +312,7 @@ export default function Simulator() {
                 <th>過去</th>
                 <td></td>
                 <td>
-                  <select data-testid="originText" className="text-black" value={selected} onChange={e => resetStatus(e.target.value)}>
+                  <select data-testid="originText" className="text-black" value={selected} aria-label='過去を選択します' onChange={e => resetStatus(e.target.value)}>
                     {
                       numberToOrigin.map((v,i) => <option key={v.key} value={v.key}>{v.name}</option>)
                     }
