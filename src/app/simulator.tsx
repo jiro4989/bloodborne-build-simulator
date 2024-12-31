@@ -386,8 +386,8 @@ export default function Simulator() {
           <div className='m-4'>
             <label>
               <p>
-                以下のURLをブックマークすることで、今のビルドを保存できます。<br/>
-                URLをコピーして共有すれば、他の人にビルドを紹介できます。
+                以下の URL をブックマークすることで、今のビルドを保存できます。<br/>
+                URL をコピーして共有すれば、他の人にビルドを紹介できます。
               </p>
               <div className='m-4'>
                 <ul className='list-disc'>
