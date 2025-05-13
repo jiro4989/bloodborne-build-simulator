@@ -397,7 +397,7 @@ export default function Simulator() {
                       data-testid="urlTextInput"
                       className={textInputClass}
                       type="text"
-                      defaultValue={shareURL}
+                      value={shareURL}
                       readOnly
                       onFocus={e => e.target.select()}
                       />
